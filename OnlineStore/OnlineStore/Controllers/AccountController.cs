@@ -1,11 +1,12 @@
-﻿using OnlineStore.Mappers;
-using OnlineStore.Models;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using OnlineStore.Identity;
+using OnlineStore.Identity.infrastructure;
 using Store.Dal.CodeFirst;
 using Store.Dal.CodeFirst.Entities;
-using Store.Dal.CodeFirst.Mappers;
-using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -19,20 +20,42 @@ namespace OnlineStore.Controllers
     public class AccountController : Controller
     {
 
-        //[HttpPost]
-        //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Login(LoginViewModel details, string returnUrl)
-        //{
-        //    return View(details);
-        //}
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Login(LoginViewModel details, string returnUrl)
+        {
+            AppUser user = await UserManager.FindAsync(details.Name, details.Password);
 
-        //[Authorize]
-        //public ActionResult Logout()
-        //{
-        //    AuthManager.SignOut();
-        //    return RedirectToAction("Index", "Home");
-        //}
+            if (user == null)
+            {
+                ModelState.AddModelError("", "Некорректное имя или пароль.");
+            }
+            else
+            {
+                ClaimsIdentity ident = await UserManager.CreateIdentityAsync(user,
+                    DefaultAuthenticationTypes.ApplicationCookie);
+
+                // Мы добавили только эту строку
+                ident.AddClaims(LocationClaimsProvider.GetClaims(ident));
+
+                AuthManager.SignOut();
+                AuthManager.SignIn(new AuthenticationProperties
+                {
+                    IsPersistent = false
+                }, ident);
+                return Redirect(returnUrl);
+            }
+
+            return View(details);
+        }
+
+        [Authorize]
+        public ActionResult Logout()
+        {
+            AuthManager.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
 
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -75,6 +98,80 @@ namespace OnlineStore.Controllers
             return View(model);
 
         }
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult GoogleLogin(string returnUrl)
+        {
+            var properties = new AuthenticationProperties
+            {
+                RedirectUri = Url.Action("GoogleLoginCallback",
+                    new { returnUrl = returnUrl })
+            };
+
+            HttpContext.GetOwinContext().Authentication.Challenge(properties, "Google");
+            return new HttpUnauthorizedResult();
+        }
+
+        [AllowAnonymous]
+        public async Task<ActionResult> GoogleLoginCallback(string returnUrl)
+        {
+            ExternalLoginInfo loginInfo = await AuthManager.GetExternalLoginInfoAsync();
+            AppUser user = await UserManager.FindAsync(loginInfo.Login);
+
+            if (user == null)
+            {
+                user = new AppUser
+                {
+                    Email = loginInfo.Email,
+                    UserName = loginInfo.DefaultUserName,
+                    City = Cities.LONDON,
+                    Country = Countries.ENG
+                };
+
+                IdentityResult result = await UserManager.CreateAsync(user);
+                if (!result.Succeeded)
+                {
+                    return View("Error", result.Errors);
+                }
+                else
+                {
+                    result = await UserManager.AddLoginAsync(user.Id, loginInfo.Login);
+                    if (!result.Succeeded)
+                    {
+                        return View("Error", result.Errors);
+                    }
+                }
+            }
+
+            ClaimsIdentity ident = await UserManager.CreateIdentityAsync(user,
+                DefaultAuthenticationTypes.ApplicationCookie);
+
+            ident.AddClaims(loginInfo.ExternalIdentity.Claims);
+
+            AuthManager.SignIn(new AuthenticationProperties
+            {
+                IsPersistent = false
+            }, ident);
+
+            return Redirect(returnUrl ?? "/");
+        }
+
+        private IAuthenticationManager AuthManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().Authentication;
+            }
+        }
+
+        private AppUserManager UserManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
+            }
+        }
+
     }
 }
 

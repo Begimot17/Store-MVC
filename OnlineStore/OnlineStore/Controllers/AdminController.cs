@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace OnlineStore.Controllers
 {
+    [Authorize(Roles = "Administrators")]
     public class AdminController : Controller
     {
         [Authorize]

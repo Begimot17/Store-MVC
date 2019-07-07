@@ -30,10 +30,7 @@ namespace OnlineStore.Identity.infrastructure
             PerformInitialSetup(context);
             base.Seed(context);
         }
-        //public void PerformInitialSetup(AppIdentityDbContext context)
-        //{
-        //    // настройки конфигурации контекста будут указываться здесь
-        //}
+       
 
         public void PerformInitialSetup(AppIdentityDbContext context)
         {

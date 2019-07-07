@@ -12,7 +12,7 @@ namespace OnlineStore.Identity.infrastructure
     public class AppUserManager : UserManager<AppUser>
     {
         public AppUserManager(IUserStore<AppUser> store)
-            : base(store)
+           : base(store)
         { }
 
         public static AppUserManager Create(IdentityFactoryOptions<AppUserManager> options,
@@ -21,20 +21,18 @@ namespace OnlineStore.Identity.infrastructure
             AppIdentityDbContext db = context.Get<AppIdentityDbContext>();
             AppUserManager manager = new AppUserManager(new UserStore<AppUser>(db));
 
-            manager.PasswordValidator = new PasswordValidator
+            /*manager.PasswordValidator = new CustomPasswordValidator
             {
                 RequiredLength = 6,
                 RequireNonLetterOrDigit = false,
                 RequireDigit = false,
                 RequireLowercase = true,
                 RequireUppercase = true
-            };
-            manager.UserValidator = new UserValidator<AppUser>(manager)
-            {
-                AllowOnlyAlphanumericUserNames = true,
-                RequireUniqueEmail = true
-            };
+            };*/
+
+            manager.UserValidator = new CustomUserValidator();
+
             return manager;
-        }   
+        }
     }
 }
