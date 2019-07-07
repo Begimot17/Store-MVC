@@ -21,7 +21,9 @@
         <th>Name</th>
         <th>Description</th>
         <th>Price</th>
+        <th>Quantity</th>
     </tr>
+
     @foreach (var item in ViewBag.Products)
     {
         <tr>
@@ -38,9 +40,13 @@
                 @item.Price @item.Currency
             </td>
             <td>
-                @Html.ActionLink("Buy", "#", new { id = item.Id }) |
-                @Html.ActionLink("To Cart", "#", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id })
+                <input name='Quantity' value='1'  size="2">
+                </input>                
+            </td>
+            <td>
+                <button name='add' type='submit' value='@item.Id'>
+                    Add to Cart
+                </button>
             </td>
         </tr>
     }
