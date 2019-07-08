@@ -12,7 +12,7 @@ namespace OnlineStore.Identity.infrastructure
     public class AppUserManager : UserManager<AppUser>
     {
         public AppUserManager(IUserStore<AppUser> store)
-           : base(store)
+            : base(store)
         { }
 
         public static AppUserManager Create(IdentityFactoryOptions<AppUserManager> options,

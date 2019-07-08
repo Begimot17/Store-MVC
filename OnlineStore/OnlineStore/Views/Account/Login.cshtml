@@ -1,5 +1,4 @@
-﻿
-@model OnlineStore.Models.UserViewModel.LoginViewModel
+﻿@model OnlineStore.Models.UserViewModel.LoginViewModel
 @{
     ViewBag.Title = "Авторизация на сайте";
 }
@@ -22,6 +21,9 @@
     </div>
     <button class="btn btn-primary" type="submit">Войти</button>
 }
+
+<br />
+
 @using (Html.BeginForm("GoogleLogin", "Account", FormMethod.Post, new { style = "margin-top:12px" }))
 {
     <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />

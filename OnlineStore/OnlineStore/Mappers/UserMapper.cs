@@ -16,7 +16,7 @@ namespace OnlineStore.Mappers
             return new UserViewModel
             {
                 Id = model.Id,
-                Login = model.Login,
+                Name = model.Login,
                 Email = model.Email,
                 Password = model.Password
             };
@@ -27,7 +27,7 @@ namespace OnlineStore.Mappers
             return new UserDto
             {
                 Id = model.Id,
-                Login = model.Login,
+                Login = model.Name,
                 Email = model.Email,
                 Password = model.Password
             };
@@ -48,7 +48,7 @@ namespace OnlineStore.Mappers
             return new UserDto
             {
                 Id = model.Id,
-                Login = model.Login,
+                Login = model.Name,
                 Email = model.Email,
                 Password = model.Password
             };

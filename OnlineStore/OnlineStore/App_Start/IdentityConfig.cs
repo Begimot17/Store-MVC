@@ -28,11 +28,11 @@ namespace OnlineStore.App_Start
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions
             {
                 AuthenticationType = "Google",
-                ClientId = "879075641925-ne4oeb5uoji2q5ofcpva5vfnlravp3e6.apps.googleusercontent.com",
-                ClientSecret = "cQicsLYWtYJEE09EdQbxWBQk",
+                ClientId = "434613336656-rjig65ijti9035glblorjuiihso18jtg.apps.googleusercontent.com",
+                ClientSecret = "qLQIk-lznjdPDMcCZ4ST8Rfr",
                 Caption = "Авторизация через Google+",
                 CallbackPath = new PathString("/GoogleLoginCallback"),
-                AuthenticationMode =AuthenticationMode.Passive,
+                AuthenticationMode = AuthenticationMode.Passive,
                 SignInAsAuthenticationType = app.GetDefaultSignInAsAuthenticationType(),
                 BackchannelTimeout = TimeSpan.FromSeconds(60),
                 BackchannelHttpHandler = new System.Net.Http.WebRequestHandler(),

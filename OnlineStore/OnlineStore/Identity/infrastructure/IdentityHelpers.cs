@@ -33,5 +33,6 @@ namespace OnlineStore.Identity.infrastructure
             return new MvcHtmlString(string.Format("{0}",
                 claimType.Split('/', '.').Last()));
         }
+
     }
 }

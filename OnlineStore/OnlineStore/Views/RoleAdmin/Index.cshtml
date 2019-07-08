@@ -1,5 +1,4 @@
-﻿@using OnlineStore.Models
-@using OnlineStore.Identity
+﻿@using OnlineStore.Identity
 @model IEnumerable<AppRole>
 
 @{
@@ -37,7 +36,7 @@
                         {
                             <p>
                                 @string.Join(", ", role.Users.Select(x =>
-                             Html.GetUserName(x.UserId)))
+                           Html.GetUserName(x.UserId)))
                         </p>
                     }
                     </td>

@@ -1,5 +1,3 @@
-namespace OnlineStore.Migrations
-{
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using OnlineStore.Identity;
@@ -8,13 +6,14 @@ namespace OnlineStore.Migrations
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
-
+namespace OnlineStore.Migrations
+{
     internal sealed class Configuration : DbMigrationsConfiguration<OnlineStore.Identity.infrastructure.AppIdentityDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
-            ContextKey = "OnlineStore.Identity.infrastructure.AppIdentityDbContext";
+            ContextKey = "Users.Infrastructure.AppIdentityDbContext";
         }
 
         protected override void Seed(OnlineStore.Identity.infrastructure.AppIdentityDbContext context)
@@ -45,10 +44,6 @@ namespace OnlineStore.Migrations
                 userMgr.AddToRole(user.Id, roleName);
             }
 
-            foreach (AppUser dbUser in userMgr.Users)
-            {
-                dbUser.City = Cities.MOSCOW;
-            }
             foreach (AppUser dbUser in userMgr.Users)
             {
                 if (dbUser.Country == Countries.NONE)

@@ -24,11 +24,5 @@ namespace OnlineStore.Controllers
                 return View(ident.Claims);
             }
         }
-        [ClaimsAccess(Issuer = "RemoteClaims", ClaimType = ClaimTypes.PostalCode,
-            Value = "DC 20500")]
-        public string OtherAction()
-        {
-            return "Это защищенный метод действия";
-        }
     }
 }

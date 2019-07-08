@@ -31,7 +31,7 @@ namespace OnlineStore.Identity
 
         [Display(Name = "Россия")]
         RUS
-    }
+    }   
     public class AppUser:IdentityUser
     {
         public Cities City { get; set; }

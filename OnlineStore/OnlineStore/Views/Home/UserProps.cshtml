@@ -11,11 +11,14 @@
     </div>
     <table class="table table-striped">
         <tr><th>Текущий город</th><td>@HomeController.GetCityName(Model.City)</td></tr>
-        <tr><th>Страна</th><td>@HomeController.GetCityName(Model.Country)</td></tr>
-
     </table>
 </div>
-
+<div class="panel panel-primary">
+    <table class="table table-striped">
+        <tr><th>Текущий город</th><td>@HomeController.GetCityName(Model.City)</td></tr>
+        <tr><th>Страна</th><td>@HomeController.GetCityName(Model.Country)</td></tr>
+    </table>
+</div>
 
 @using (Html.BeginForm())
 {

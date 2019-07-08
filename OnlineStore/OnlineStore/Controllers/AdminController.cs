@@ -8,10 +8,9 @@ using System.Web.Mvc;
 
 namespace OnlineStore.Controllers
 {
-    [Authorize(Roles = "Administrators")]
+   // [Authorize(Roles = "Administrators")]
     public class AdminController : Controller
     {
-        [Authorize]
         public ActionResult Index()
         {
             return View(UserManager.Users);
@@ -48,6 +47,14 @@ namespace OnlineStore.Controllers
             foreach (string error in result.Errors)
             {
                 ModelState.AddModelError("", error);
+            }
+        }
+
+        private AppUserManager UserManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
             }
         }
         [HttpPost]
@@ -136,13 +143,6 @@ namespace OnlineStore.Controllers
                 ModelState.AddModelError("", "Пользователь не найден");
             }
             return View(user);
-        }
-        private AppUserManager UserManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
-            }
         }
     }
 }
