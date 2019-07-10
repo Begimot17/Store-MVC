@@ -9,6 +9,8 @@ namespace Store.Dal.CodeFirst.Contracts
 {
     public interface IManufacturerRepository
     {
+        void Create(ManufacturerDto model);
+
         ManufacturerDto GetManufacturer(Guid id);
         IEnumerable<ManufacturerDto> GetManufacturer();
 

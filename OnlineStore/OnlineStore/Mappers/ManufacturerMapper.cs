@@ -34,9 +34,9 @@ namespace OnlineStore.Mappers
             return models.Select(x => x.ToViewModel());
         }
 
-        public static IEnumerable<ManufacturerDto> ToViewModel(this IEnumerable<ManufacturerViewModel> models)
+        public static IEnumerable<ManufacturerDto> ToDto(this IEnumerable<ManufacturerViewModel> models)
         {
-            return models.Select(x => x.ToViewModel());
+            return models.Select(x => x.ToDto());
         }
 
         public static ManufacturerDto ToViewModel(this ManufacturerViewModel model)

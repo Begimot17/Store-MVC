@@ -11,6 +11,17 @@ namespace Store.Dal.CodeFirst.Repository
 {
     public class ManufacturerRepository :BaseRepository, IManufacturerRepository
     {
+        public void Create(ManufacturerDto model)
+        {
+            var entity = model.ToEntity();
+
+            WithContext(context =>
+            {
+                context.Manufacturers.Add(entity);
+                context.SaveChanges();
+            });
+        }
+
         public ManufacturerDto GetManufacturer(Guid id)
         {
             ManufacturerDto user = null;
