@@ -7,6 +7,8 @@
 @Html.ValidationSummary(false)
 @using (Html.BeginForm())
 {
+    <h2>Регистрация</h2>
+
     <div class="form-group">
         <label>Имя</label>
         @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })

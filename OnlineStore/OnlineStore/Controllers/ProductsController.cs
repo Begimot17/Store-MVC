@@ -36,10 +36,16 @@ namespace OnlineStore.Controllers
 
             return RedirectToAction("Index");
         }
+       
+        
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(string search=null)
         {
             var products = _productRepository.GetProducts().ToViewModel() ?? new List<ProductViewModel>();
+            if (search != null)
+            {
+                products = products.Where(x => x.Name.ToLower().Contains(search.ToLower()));
+            }
             ViewBag.Products = products;
             return View();
         }

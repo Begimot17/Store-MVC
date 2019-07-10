@@ -4,27 +4,60 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    .btn {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+</style>
 
 @*@using (Html.BeginForm("Index", "Products", new { searchQuery = Model.SearchQuery }, FormMethod.Get))
-{
-    <div>
-        @Html.LabelFor(x => x.SearchQuery)
-        @Html.TextBoxFor(x => x.SearchQuery, htmlAttributes: new { placeholder = "Search..." })
+    {
+        <div>
+            @Html.LabelFor(x => x.SearchQuery)
+            @Html.TextBoxFor(x => x.SearchQuery, htmlAttributes: new { placeholder = "Search..." })
 
-        <input type="submit" value="Search" />
-    </div>
-}*@
-@Html.ActionLink("Add Product", "Create")
-<table class="table">
+            <input type="submit" value="Search" />
+        </div>
+    }*@
+
+<a href="/Products/Create" class="btn btn-primary">Add Product</a>
+
+@*<table class="table">
     <tr>
         <th>Product</th>
         <th>Name</th>
         <th>Description</th>
         <th>Price</th>
-    </tr>
-    @foreach (var item in ViewBag.Products)
-    {
-        <tr>
+    </tr>*@
+
+@foreach (var item in ViewBag.Products)
+{
+    <div class="well ">
+        <h3>
+            <img src="@item.Logo" width="200" height="200" />
+            <div>
+                <strong>@item.Name</strong>
+                <span class="pull-right label label-primary">@item.Price.ToString() @item.Currency</span>
+            </div>
+        </h3>
+        <span class="lead">@item.Description</span>
+
+        @using (Html.BeginForm("AddToCart", "Cart"))
+        {
+            <div class="pull-right">
+                <input type="hidden" name="Id" value="@item.Id" />
+                @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                <input type="submit" class="btn btn-success" value="Добавить в корзину" />
+            </div>
+
+        }
+        <a class="btn btn-info" href="/Products/Details/@item.Id">Details</a>
+
+    </div>
+
+
+    @*<tr>
             <td>
                 <img src="@item.Logo" width="100" />
             </td>
@@ -41,7 +74,10 @@
                 @Html.ActionLink("Add to Cart", "#", new { id = item.Id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.Id })
             </td>
-        </tr>
-    }
+        </tr>*@
+}
 
-</table>
+
+
+
+@*</table>*@
