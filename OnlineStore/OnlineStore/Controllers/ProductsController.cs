@@ -12,15 +12,20 @@ namespace OnlineStore.Controllers
 {
     public class ProductsController : Controller
     {
+        private IManufacturerRepository _manufacturerRepository;
+
         private IProductRepository _productRepository;
 
         public ProductsController()
         {
             _productRepository = new ProductRepository();
+            _manufacturerRepository = new ManufacturerRepository();
         }
         [HttpGet]
         public ActionResult Create()
         {
+            var manufacturers = _manufacturerRepository.GetManufacturer().ToViewModel() ?? new List<ManufacturerViewModel>();
+            ViewBag.Manufacturers = manufacturers;
             return View();
         }
 
