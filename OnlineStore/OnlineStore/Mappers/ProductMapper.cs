@@ -21,17 +21,8 @@ namespace OnlineStore.Mappers
                Logo=model.Logo,
                Price=model.Price,
                Currency=model.Currency,
-                Manufacturer = new ManufacturerViewModel
-                {
-                    Id = model.Manufacturer.Id,
-                    Name = model.Manufacturer.Name,
-                    Logo = model.Manufacturer.Logo
-                },
-                Category = new CategoryViewModel
-                {
-                    Id = model.Manufacturer.Id,
-                    Name = model.Manufacturer.Name,
-                },
+                Manufacturer = model.Manufacturer.ToViewModel(),
+                Category = model.Category.ToViewModel()
 
             };
         }
@@ -46,17 +37,8 @@ namespace OnlineStore.Mappers
                 Logo = model.Logo,
                 Price = model.Price,
                 Currency = model.Currency,
-                Manufacturer = new ManufacturerDto
-                {
-                    Id = model.Manufacturer.Id,
-                    Name = model.Manufacturer.Name,
-                    Logo = model.Manufacturer.Logo
-                },
-                Category = new CategoryDto
-                {
-                    Id = model.Manufacturer.Id,
-                    Name = model.Manufacturer.Name,
-                },
+                Manufacturer = model.Manufacturer.ToDto(),
+                Category = model.Category.ToDto()
             };
         }
 

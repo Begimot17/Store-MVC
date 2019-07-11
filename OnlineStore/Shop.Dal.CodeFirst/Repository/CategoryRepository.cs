@@ -24,13 +24,13 @@ namespace Store.Dal.CodeFirst.Repository
 
         public CategoryDto GetCategory(Guid id)
         {
-            CategoryDto user = null;
+            CategoryDto categoryDto = null;
             WithContext(context =>
             {
-                user = context.Categories.Single(x => x.Id.Equals(id)).ToDto();
+                categoryDto = context.Categories.Single(x => x.Id.Equals(id)).ToDto();
             });
 
-            return user;
+            return categoryDto;
         }
 
         public IEnumerable<CategoryDto> GetCategory()

@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using OnlineStore.Mappers;
 using OnlineStore.Models;
+using OnlineStore.Enum;
 
 namespace OnlineStore.Controllers
 {
@@ -29,19 +30,19 @@ namespace OnlineStore.Controllers
         {
             var categories = _categoryRepository.GetCategory().ToViewModel() ?? new List<CategoryViewModel>();
             var manufacturers = _manufacturerRepository.GetManufacturer().ToViewModel() ?? new List<ManufacturerViewModel>();
-            ViewBag.Manufacturers = manufacturers;
-            ViewBag.Categories = categories;
-
+            var currency = System.Enum.GetValues(typeof(Сurrency));
+            ViewBag.Currency = new SelectList(currency);
+            ViewBag.Category = new SelectList(categories, "Id", "Name"); ;
+            ViewBag.Manufacturer = new SelectList(manufacturers, "Id", "Name"); ;
             return View();
         }
 
         [HttpPost]
-        public ActionResult Create(ProductViewModel model/*, Guid x, Guid y*/)
+        public ActionResult Create(ProductViewModel model)
         {
-            //model.Manufacturer.Id = x;
-            //model.Category.Id = y;
+            model.Category = _categoryRepository.GetCategory(model.Category.Id).ToViewModel();
+            model.Manufacturer = _manufacturerRepository.GetManufacturer(model.Manufacturer.Id).ToViewModel();
             _productRepository.Create(model.ToDto());
-
             return RedirectToAction("Index");
         }
         [HttpGet]
@@ -61,6 +62,14 @@ namespace OnlineStore.Controllers
         public ActionResult AddCategory()
         {
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult Delete(Guid id)
+        {
+            _productRepository.Delete(id);
+
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
@@ -86,6 +95,27 @@ namespace OnlineStore.Controllers
         [HttpGet]
         public ActionResult Details(Guid id)
         {
+            var product = _productRepository.GetProduct(id)?.ToViewModel();
+
+            return View(product);
+        }
+        [HttpPost]
+        public ActionResult Edit(ProductViewModel model)
+        {
+            model.Category = _categoryRepository.GetCategory(model.Category.Id).ToViewModel();
+            model.Manufacturer = _manufacturerRepository.GetManufacturer(model.Manufacturer.Id).ToViewModel();
+            _productRepository.Update(model.ToDto());
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public ActionResult Edit(Guid id)
+        {
+            var categories = _categoryRepository.GetCategory().ToViewModel() ?? new List<CategoryViewModel>();
+            var manufacturers = _manufacturerRepository.GetManufacturer().ToViewModel() ?? new List<ManufacturerViewModel>();
+            var currency = System.Enum.GetValues(typeof(Сurrency));
+            ViewBag.Currency = new SelectList(currency);
+            ViewBag.Category = new SelectList(categories, "Id", "Name"); ;
+            ViewBag.Manufacturer = new SelectList(manufacturers, "Id", "Name"); ;
             var product = _productRepository.GetProduct(id)?.ToViewModel();
 
             return View(product);

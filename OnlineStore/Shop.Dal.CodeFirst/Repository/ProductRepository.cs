@@ -1,4 +1,5 @@
 ﻿using Store.Dal.CodeFirst.Contracts;
+using Store.Dal.CodeFirst.Entities;
 using Store.Dal.CodeFirst.Mappers;
 using Store.Dtos.Data.Category;
 using Store.Dtos.Data.Manufacturer;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Store.Dal.CodeFirst.Repository
 {
-    public class ProductRepository:BaseRepository , IProductRepository
+    public class ProductRepository : BaseRepository, IProductRepository
     {
         public void Create(ProductDto model)
         {
@@ -26,18 +27,25 @@ namespace Store.Dal.CodeFirst.Repository
 
         public void Delete(Guid id)
         {
-            throw new NotImplementedException();
+            WithContext(context =>
+            {
+                var product = context.Products.Single(x => x.Id.Equals(id));
+
+                context.Products.Remove(product);
+
+                context.SaveChanges();
+            });
         }
 
         public ProductDto GetProduct(Guid id)
         {
-            ProductDto user = null;
+            ProductDto productDto = null;
             WithContext(context =>
             {
-                user = context.Products.Single(x => x.Id.Equals(id)).ToDto();
+                productDto = context.Products.Single(x => x.Id.Equals(id)).ToDto();
             });
 
-            return user;
+            return productDto;
         }
         public IEnumerable<ProductDto> GetProducts()
         {
@@ -62,8 +70,8 @@ namespace Store.Dal.CodeFirst.Repository
                     },
                     Category = new CategoryDto
                     {
-                        Id = x.Manufacturer.Id,
-                        Name = x.Manufacturer.Name,
+                        Id = x.Category.Id,
+                        Name = x.Category.Name,
                     },
                 }).ToArray();
             });
@@ -73,7 +81,31 @@ namespace Store.Dal.CodeFirst.Repository
 
         public void Update(ProductDto model)
         {
-            throw new NotImplementedException();
+            WithContext(context =>
+            {
+                var product = context.Products.Single(x => x.Id.Equals(model.Id));
+
+                product.Id = model.Id;
+                product.Name = model.Name;
+                product.Logo = model.Logo;
+                product.Description = model.Description;
+                product.Manufacturer = new Manufacturer
+                {
+                    Id = model.Manufacturer.Id,
+                    Name = model.Manufacturer.Name,
+                    Logo = model.Manufacturer.Logo
+                };
+                product.Category = new Category
+                {
+                    Id = model.Category.Id,
+                    Name = model.Category.Name,
+                };
+                product.Price = model.Price;
+                product.Currency = model.Currency;
+
+
+                context.SaveChanges();
+            });
         }
     }
 }

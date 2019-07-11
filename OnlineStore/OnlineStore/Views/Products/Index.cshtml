@@ -24,42 +24,44 @@
     <a href="/Products/Create" class="btn btn-primary">Add Product</a>
     <a href="/Products/AddManufacture" class="btn btn-primary">Add Manufacture</a>
     <a href="/Products/AddCategory" class="btn btn-primary">Add Category</a>
+    @*@Html.Label("Category", htmlAttributes: new { @class = "control-label col-md-2" })
+    <select class="form-control" id="Category" name="Category" >
+            @foreach (var item in ViewBag.Category)
+            {
+                <option id="Category" name="CategoryId" value="@item.Id">@item.Name</option>
+            }
+    </select>*@
 </div>
 
 
-@*<table class="table">
-    <tr>
-        <th>Product</th>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Price</th>
-    </tr>*@
+
 
 @foreach (var item in ViewBag.Products)
 {
-    <div class="well ">
-        <h3>
-            <img src="@item.Logo" width="200" height="200" />
-            <div>
-                <strong>@item.Name</strong>
-                <span class="pull-right label label-primary">@item.Price.ToString() @item.Currency</span>
-            </div>
-        </h3>
-        <span class="lead">@item.Description</span>
+<div class="well ">
+    <h3>
+        <img src="@item.Logo" width="200" height="200" />
+        <div>
+            <strong>@item.Name</strong>
+            <span class="pull-right label label-primary">@item.Price.ToString() @item.Currency</span>
+        </div>
+    </h3>
+    <span class="lead">@item.Description</span>
 
-        @using (Html.BeginForm("AddToCart", "Cart"))
-        {
-            <div class="pull-right">
-                <input type="hidden" name="Id" value="@item.Id" />
-                @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
-                <input type="submit" class="btn btn-success" value="Добавить в корзину" />
-            </div>
+    @using (Html.BeginForm("AddToCart", "Cart"))
+    {
+        <div class="pull-right">
+            <input type="hidden" name="Id" value="@item.Id" />
+            @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+            <input type="submit" class="btn btn-success" value="     Add to cart     " />
+        </div>
 
-        }
+    }
 
-        <a class="btn btn-info" href="/Products/Details/@item.Id">Details</a>
+    <a class="btn btn-info" href="/Products/Details/@item.Id">Details</a>
+    <a class="btn btn-danger" href="/Products/Delete/@item.Id">Delete</a>
 
-    </div>
+</div>
 
 
     @*<tr>
