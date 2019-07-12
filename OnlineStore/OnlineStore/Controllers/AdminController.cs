@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace OnlineStore.Controllers
 {
-   // [Authorize(Roles = "Administrators")]
+    [Authorize(Roles = "Administrators")]
     public class AdminController : Controller
     {
         public ActionResult Index()

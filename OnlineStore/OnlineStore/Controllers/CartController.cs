@@ -36,7 +36,7 @@ namespace OnlineStore.Controllers
         public ActionResult Buy(Guid Id)
         {
             var items = _itemRepository.GetItem(Id);
-            items.Status =StatusEnum.Purchase.ToString();
+            items.Status = StatusEnum.Purchase.ToString();
             _itemRepository.Update(items);
             return RedirectToAction("Index");
         }
@@ -48,20 +48,20 @@ namespace OnlineStore.Controllers
             return View(items);
         }
         [HttpGet]
-        public ActionResult AddToCart(Guid ProductId,int quantity=3)
+        public ActionResult AddToCart(Guid ProductId, int quantity = 3)
         {
             var userView = _userRepository.GetUsers(null).ToViewModel();
             ItemViewModel item = new ItemViewModel();
             item.Product = _productRepository.GetProduct(ProductId).ToViewModel();
             item.Order = new OrderViewModel
             {
-                
+
                 User = new UserViewModel
                 {
-                   Id=userView.Last().Id,
-                   Name= userView.Last().Name,
+                    Id = userView.Last().Id,
+                    Name = userView.Last().Name,
                     Password = userView.Last().Password,
-                    Email= userView.Last().Email
+                    Email = userView.Last().Email
                 }
                 ,
                 Number = "Number random"

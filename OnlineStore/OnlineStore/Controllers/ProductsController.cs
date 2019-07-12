@@ -36,7 +36,7 @@ namespace OnlineStore.Controllers
             ViewBag.Manufacturer = new SelectList(manufacturers, "Id", "Name"); ;
             return View();
         }
-
+        [Authorize(Roles = "Administrators")]
         [HttpPost]
         public ActionResult Create(ProductViewModel model)
         {
@@ -45,12 +45,13 @@ namespace OnlineStore.Controllers
             _productRepository.Create(model.ToDto());
             return RedirectToAction("Index");
         }
+        [Authorize(Roles = "Administrators")]
         [HttpGet]
         public ActionResult AddManufacture()
         {
             return View();
         }
-
+        [Authorize(Roles = "Administrators")]
         [HttpPost]
         public ActionResult AddManufacture(ManufacturerViewModel model)
         {
@@ -58,12 +59,13 @@ namespace OnlineStore.Controllers
 
             return RedirectToAction("Index");
         }
+        [Authorize(Roles = "Administrators")]
         [HttpGet]
         public ActionResult AddCategory()
         {
             return View();
         }
-
+        [Authorize(Roles = "Administrators")]
         [HttpGet]
         public ActionResult Delete(Guid id)
         {
@@ -72,6 +74,7 @@ namespace OnlineStore.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Administrators")]
         [HttpPost]
         public ActionResult AddCategory(CategoryViewModel model)
         {
@@ -82,7 +85,7 @@ namespace OnlineStore.Controllers
 
 
         [HttpGet]
-        public ActionResult Index(string search=null)
+        public ActionResult Index(string search = null)
         {
             var products = _productRepository.GetProducts().ToViewModel() ?? new List<ProductViewModel>();
             if (search != null)
@@ -92,6 +95,8 @@ namespace OnlineStore.Controllers
             ViewBag.Products = products;
             return View();
         }
+
+
         [HttpGet]
         public ActionResult Details(Guid id)
         {
@@ -99,6 +104,8 @@ namespace OnlineStore.Controllers
 
             return View(product);
         }
+        [Authorize(Roles = "Administrators")]
+
         [HttpPost]
         public ActionResult Edit(ProductViewModel model)
         {
@@ -107,6 +114,8 @@ namespace OnlineStore.Controllers
             _productRepository.Update(model.ToDto());
             return RedirectToAction("Index");
         }
+        [Authorize(Roles = "Administrators")]
+
         [HttpGet]
         public ActionResult Edit(Guid id)
         {

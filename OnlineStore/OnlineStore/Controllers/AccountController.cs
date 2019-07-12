@@ -47,7 +47,6 @@ namespace OnlineStore.Controllers
                 ClaimsIdentity ident = await UserManager.CreateIdentityAsync(user,
                     DefaultAuthenticationTypes.ApplicationCookie);
 
-                // Мы добавили только эту строку
                 ident.AddClaims(LocationClaimsProvider.GetClaims(ident));
 
                 AuthManager.SignOut();
@@ -55,7 +54,6 @@ namespace OnlineStore.Controllers
                 {
                     IsPersistent = false
                 }, ident);
-               // return Redirect(returnUrl);
             }
 
             return View(details);

@@ -1,4 +1,5 @@
 ﻿@using OnlineStore.Identity
+@using OnlineStore.Identity.infrastructure
 @model IEnumerable<AppRole>
 
 @{
@@ -37,8 +38,8 @@
                             <p>
                                 @string.Join(", ", role.Users.Select(x =>
                            Html.GetUserName(x.UserId)))
-                        </p>
-                    }
+                            </p>
+                        }
                     </td>
                     <td>
                         @using (Html.BeginForm("Delete", "RoleAdmin", new { id = role.Id }))

@@ -92,9 +92,9 @@
     <Compile Include="Mappers\OrderMapper.cs" />
     <Compile Include="Mappers\ProductMapper.cs" />
     <Compile Include="Mappers\UserMapper.cs" />
-    <Compile Include="Migrations\201907121056459_first.cs" />
-    <Compile Include="Migrations\201907121056459_first.Designer.cs">
-      <DependentUpon>201907121056459_first.cs</DependentUpon>
+    <Compile Include="Migrations\201907121200443_first.cs" />
+    <Compile Include="Migrations\201907121200443_first.Designer.cs">
+      <DependentUpon>201907121200443_first.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
@@ -181,8 +181,8 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201907121056459_first.resx">
-      <DependentUpon>201907121056459_first.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201907121200443_first.resx">
+      <DependentUpon>201907121200443_first.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

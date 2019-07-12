@@ -11,6 +11,7 @@ using System.Web.Mvc;
 
 namespace OnlineStore.Controllers
 {
+    
     public class UserController:Controller
     {
         private IUserRepository _userRepository;
