@@ -29,7 +29,14 @@ namespace Store.Dal.CodeFirst.Repository
 
         public void Delete(Guid id)
         {
-            throw new NotImplementedException();
+            WithContext(context =>
+            {
+                var product = context.Items.Single(x => x.Id.Equals(id));
+
+                context.Items.Remove(product);
+
+                context.SaveChanges();
+            });
         }
 
         public ItemDto GetItem(Guid id)
