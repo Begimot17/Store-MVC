@@ -3,6 +3,7 @@ using OnlineStore.Mappers;
 using OnlineStore.Models;
 using OnlineStore.WebUI.Models;
 using Store.Dal.CodeFirst.Contracts;
+using Store.Dal.CodeFirst.Entities;
 using Store.Dal.CodeFirst.Repository;
 using Store.Dtos.Data.Product;
 using System;
@@ -32,10 +33,18 @@ namespace OnlineStore.Controllers
 
         }
         [HttpGet]
+        public ActionResult Buy(Guid Id)
+        {
+            var items = _itemRepository.GetItem(Id);
+            items.Status =StatusEnum.Purchase.ToString();
+            _itemRepository.Update(items);
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
         public ActionResult Index()
         {
             var items = _itemRepository.GetItems().ToViewModel() ?? new List<ItemViewModel>();
-            
+
             return View(items);
         }
         [HttpGet]
@@ -58,7 +67,7 @@ namespace OnlineStore.Controllers
                 Number = "Number random"
             };
             item.Quantity = quantity;
-            item.Status = "Cart";
+            item.Status = StatusEnum.Cart.ToString();
             _itemRepository.Create(item.ToDto());
             return RedirectToAction("Index");
         }

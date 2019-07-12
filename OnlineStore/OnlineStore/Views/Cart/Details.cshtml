@@ -1,0 +1,81 @@
+﻿@model OnlineStore.Models.ItemViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Number
+        </dt>
+        <dt>
+            @Html.DisplayFor(model => model.Order.Number)
+        </dt>
+
+        <dd>
+            @Html.Display("UserName")
+        </dd>
+        <dt>
+            @Html.DisplayFor(model => model.Order.User.Name)
+        </dt>
+
+        <dd>
+            @Html.Display("UserEmail")
+        </dd>
+        <dt>
+            @Html.DisplayFor(model => model.Order.User.Email)
+        </dt>
+
+        <dd>
+            @Html.Display("ProductName")
+        </dd>
+        <dt>
+            @Html.DisplayFor(model => model.Product.Name)
+        </dt>
+        <dd>
+            @Html.Display("Category")
+        </dd>
+        <dt>
+            @Html.DisplayFor(model => model.Product.Category.Name)
+        </dt>
+        <dd>
+            @Html.Display("Manufactur")
+        </dd>
+        <dt>
+            @Html.DisplayFor(model => model.Product.Manufacturer.Name)
+        </dt>
+        <dd>
+            @Html.Display("ProductPrice")
+        </dd>
+        <dt>
+            @Html.DisplayFor(model => model.Product.Price)
+            @Html.DisplayFor(model => model.Product.Currency)
+        </dt>
+
+        <dd>
+            @Html.Display("Quantity")
+        </dd>
+        <dt>
+            @Html.DisplayFor(model => model.Quantity)
+        </dt>
+
+        <dd>
+            @Html.Display("Status")
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
