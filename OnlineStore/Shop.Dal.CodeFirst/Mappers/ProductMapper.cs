@@ -33,10 +33,10 @@ namespace Store.Dal.CodeFirst.Mappers
                 Name = model.Name,
                 Description = model.Description,
                 Logo = model.Logo,
-                Manufacturer = model.Manufacturer.ToEntity(),
+                ManufacturerId = model.Manufacturer.Id,
                 Price = model.Price,
                 Currency = model.Currency,
-                Category = model.Category.ToEntity()
+                CategoryId = model.Category.Id
             };
         }
     }

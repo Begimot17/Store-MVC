@@ -3,7 +3,7 @@ namespace Store.Dal.CodeFirst.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class initial : DbMigration
+    public partial class first : DbMigration
     {
         public override void Up()
         {
@@ -22,6 +22,7 @@ namespace Store.Dal.CodeFirst.Migrations
                     {
                         Id = c.Guid(nullable: false, identity: true),
                         Quantity = c.Int(nullable: false),
+                        Status = c.String(),
                         Order_Id = c.Guid(),
                         Product_Id = c.Guid(),
                     })

@@ -7,13 +7,13 @@ namespace Store.Dal.CodeFirst.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class initial : IMigrationMetadata
+    public sealed partial class item : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(initial));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(item));
         
         string IMigrationMetadata.Id
         {
-            get { return "201907031519414_initial"; }
+            get { return "201907120642185_item"; }
         }
         
         string IMigrationMetadata.Source

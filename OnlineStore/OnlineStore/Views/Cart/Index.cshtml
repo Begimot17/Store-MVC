@@ -1,42 +1,59 @@
-﻿@model OnlineStore.WebUI.Models.CartIndexViewModel
+﻿@model IEnumerable<OnlineStore.Models.ItemViewModel>
 
 @{
-    ViewBag.Title = "GameStore: ваша корзина";
+    ViewBag.Title = "Index";
 }
 
-<h2>Ваша корзина</h2>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Кол-во</th>
-            <th>Игра</th>
-            <th class="text-right">Цена</th>
-            <th class="text-right">Общая цена</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var line in Model.Cart.Lines)
-        {
-            <tr>
-                <td class="text-center">@line.Quantity</td>
-                <td class="text-left">@line.Product.Name</td>
-                <td class="text-right">@line.Product.Price.ToString("# руб")</td>
-                <td class="text-right">
-                    @((line.Quantity * line.Product.Price).ToString("# руб"))
-                </td>
-            </tr>
-        }
-    </tbody>
-    <tfoot>
-        <tr>
-            <td colspan="3" class="text-right">Итого:</td>
-            <td class="text-right">
-                @Model.Cart.ComputeTotalValue().ToString("# руб")
-            </td>
-        </tr>
-    </tfoot>
-</table>
+<h2>Index</h2>
 
-<div class="text-center">
-    <a class="btn btn-primary" href="@Model.ReturnUrl">Продолжить покупки</a>
-</div>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Number")
+        </th>
+        <th>
+            @Html.DisplayName("UserName")
+        </th>
+        <th>
+            @Html.DisplayName("Product")
+        </th>
+        <th>
+            @Html.DisplayName("Quantity")
+        </th>
+        <th>
+            @Html.DisplayName("Status")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Order.Number)
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.Order.User.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Quantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+        </td>
+    </tr>
+    }
+
+</table>

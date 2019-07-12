@@ -1,7 +1,9 @@
 ﻿using OnlineStore.Domain.Entities;
+using OnlineStore.Mappers;
 using OnlineStore.Models;
 using OnlineStore.WebUI.Models;
 using Store.Dal.CodeFirst.Contracts;
+using Store.Dal.CodeFirst.Repository;
 using Store.Dtos.Data.Product;
 using System;
 using System.Collections.Generic;
@@ -13,53 +15,81 @@ namespace OnlineStore.Controllers
 {
     public class CartController : Controller
     {
-        private IProductRepository repository;
+        private IItemRepository _itemRepository;
+        private IOrderRepository _orderRepository;
+        private IProductRepository _productRepository;
+        private IUserRepository _userRepository;
 
-        public ViewResult Index(string returnUrl)
+
+        public CartController()
         {
-            return View(new CartIndexViewModel
-            {
-                Cart = GetCart(),
-                ReturnUrl = returnUrl
-            });
+            _itemRepository = new ItemRepository();
+            _orderRepository = new OrderRepository();
+            _productRepository = new ProductRepository();
+            _userRepository = new UserRepository();
+
+
+
         }
-        public CartController(IProductRepository repo)
+        [HttpGet]
+        public ActionResult Index()
         {
-            repository = repo;
+            var items = _itemRepository.GetItems().ToViewModel() ?? new List<ItemViewModel>();
+            
+            return View(items);
         }
-        public RedirectToRouteResult AddToCart(Guid Id, string returnUrl)
+        [HttpGet]
+        public ActionResult AddToCart(Guid ProductId,int quantity=3)
         {
-            ProductDto product = repository.GetProducts()
-                .FirstOrDefault(p => p.Id == Id);
-
-            if (product != null)
+            var userView = _userRepository.GetUsers(null).ToViewModel();
+            ItemViewModel item = new ItemViewModel();
+            item.Product = _productRepository.GetProduct(ProductId).ToViewModel();
+            item.Order = new OrderViewModel
             {
-                GetCart().AddItem(product, 1);
-            }
-            return RedirectToAction("Index", new { returnUrl });
+                
+                User = new UserViewModel
+                {
+                   Id=userView.Last().Id,
+                   Name= userView.Last().Name,
+                    Password = userView.Last().Password,
+                    Email= userView.Last().Email
+                }
+                ,
+                Number = "Number random"
+            };
+            item.Quantity = quantity;
+            item.Status = "Cart";
+            _itemRepository.Create(item.ToDto());
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public ActionResult Delete(Guid id)
+        {
+            _itemRepository.Delete(id);
+
+            return RedirectToAction("Index");
         }
 
-        public RedirectToRouteResult RemoveFromCart(Guid Id, string returnUrl)
-        {
-            ProductDto product = repository.GetProducts()
-                .FirstOrDefault(g => g.Id == Id);
+        //[HttpPost]
+        //public ActionResult Edit(UserViewModel model)
+        //{
+        //    _itemRepository.Update(model.ToDto());
 
-            if (product != null)
-            {
-                GetCart().RemoveLine(product);
-            }
-            return RedirectToAction("Index", new { returnUrl });
+        //    return RedirectToAction("Index");
+        //}
+        [HttpGet]
+        public ActionResult Edit(Guid id)
+        {
+            var user = _itemRepository.GetItem(id)?.ToViewModel();
+
+            return View(user);
         }
-
-        public Cart GetCart()
+        [HttpGet]
+        public ActionResult Details(Guid id)
         {
-            Cart cart = (Cart)Session["Cart"];
-            if (cart == null)
-            {
-                cart = new Cart();
-                Session["Cart"] = cart;
-            }
-            return cart;
+            var user = _itemRepository.GetItem(id)?.ToViewModel();
+
+            return View(user);
         }
     }
 }

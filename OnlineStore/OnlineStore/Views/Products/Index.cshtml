@@ -10,81 +10,22 @@
         margin-bottom: 5px;
     }
 </style>
-
-@*@using (Html.BeginForm("Index", "Products", new { searchQuery = Model.SearchQuery }, FormMethod.Get))
-    {
-        <div>
-            @Html.LabelFor(x => x.SearchQuery)
-            @Html.TextBoxFor(x => x.SearchQuery, htmlAttributes: new { placeholder = "Search..." })
-
-            <input type="submit" value="Search" />
-        </div>
-    }*@
 <div>
     <a href="/Products/Create" class="btn btn-primary">Add Product</a>
     <a href="/Products/AddManufacture" class="btn btn-primary">Add Manufacture</a>
     <a href="/Products/AddCategory" class="btn btn-primary">Add Category</a>
-    @*@Html.Label("Category", htmlAttributes: new { @class = "control-label col-md-2" })
-    <select class="form-control" id="Category" name="Category" >
-            @foreach (var item in ViewBag.Category)
-            {
-                <option id="Category" name="CategoryId" value="@item.Id">@item.Name</option>
-            }
-    </select>*@
 </div>
-
-
-
-
 @foreach (var item in ViewBag.Products)
 {
 <div class="well ">
     <h3>
         <img src="@item.Logo" width="200" height="200" />
-        <div>
             <strong>@item.Name</strong>
             <span class="pull-right label label-primary">@item.Price.ToString() @item.Currency</span>
-        </div>
     </h3>
     <span class="lead">@item.Description</span>
-
-    @using (Html.BeginForm("AddToCart", "Cart"))
-    {
-        <div class="pull-right">
-            <input type="hidden" name="Id" value="@item.Id" />
-            @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
-            <input type="submit" class="btn btn-success" value="     Add to cart     " />
-        </div>
-
-    }
-
+    <a class="btn btn-success" href="/Cart/AddToCart?ProductId=@item.Id">ToCart</a>
     <a class="btn btn-info" href="/Products/Details/@item.Id">Details</a>
     <a class="btn btn-danger" href="/Products/Delete/@item.Id">Delete</a>
-
 </div>
-
-
-    @*<tr>
-            <td>
-                <img src="@item.Logo" width="100" />
-            </td>
-            <td>
-                @item.Name
-            </td>
-            <td>
-                @item.Description
-            </td>
-            <td>
-                @item.Price @item.Currency
-            </td>
-            <td>
-                @Html.ActionLink("Add to Cart", "#", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id })
-            </td>
-        </tr>*@
 }
-
-
-
-
-@*</table>*@

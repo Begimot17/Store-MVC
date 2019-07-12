@@ -16,7 +16,9 @@ namespace OnlineStore.Mappers
                 Id = model.Id,
                 Order=model.Order.ToViewModel(),
                 Product=model.Product.ToViewModel(),
-                Quantity=model.Quantity
+                Quantity=model.Quantity,
+                Status = model.Status
+
 
             };
         }
@@ -28,7 +30,8 @@ namespace OnlineStore.Mappers
                 Id = model.Id,
                 Order = model.Order.ToViewModel(),
                 Product = model.Product.ToViewModel(),
-                Quantity = model.Quantity
+                Quantity = model.Quantity,
+                Status=model.Status
             };
         }
 
@@ -49,7 +52,9 @@ namespace OnlineStore.Mappers
                 Id = model.Id,
                 Order = model.Order.ToViewModel(),
                 Product = model.Product.ToViewModel(),
-                Quantity = model.Quantity
+                Quantity = model.Quantity,
+                Status = model.Status
+
             };
         }
     }

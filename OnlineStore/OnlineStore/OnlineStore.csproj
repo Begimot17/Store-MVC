@@ -195,16 +195,13 @@
     <Compile Include="Mappers\Order.cs" />
     <Compile Include="Mappers\ProductMapper.cs" />
     <Compile Include="Mappers\UserMapper.cs" />
-    <Compile Include="Migrations\201907070532355_CityProperty.cs" />
-    <Compile Include="Migrations\201907070532355_CityProperty.Designer.cs">
-      <DependentUpon>201907070532355_CityProperty.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907070536246_CountryProperty.cs" />
-    <Compile Include="Migrations\201907070536246_CountryProperty.Designer.cs">
-      <DependentUpon>201907070536246_CountryProperty.cs</DependentUpon>
+    <Compile Include="Migrations\201907120431577_first.cs" />
+    <Compile Include="Migrations\201907120431577_first.Designer.cs">
+      <DependentUpon>201907120431577_first.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CategoryViewModel.cs" />
+    <Compile Include="Models\ItemsViewModel.cs" />
     <Compile Include="Models\ItemViewModel.cs" />
     <Compile Include="Models\ManufacturerViewModel.cs" />
     <Compile Include="Models\OrderViewModel.cs" />
@@ -312,10 +309,10 @@
     <Content Include="Views\Home\UserProps.cshtml" />
     <Content Include="Views\Claims\Index.cshtml" />
     <Content Include="Views\Shared\ProductSummary.cshtml" />
-    <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Products\AddManufacture.cshtml" />
     <Content Include="Views\Products\AddCategory.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -341,11 +338,8 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201907070532355_CityProperty.resx">
-      <DependentUpon>201907070532355_CityProperty.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907070536246_CountryProperty.resx">
-      <DependentUpon>201907070536246_CountryProperty.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201907120431577_first.resx">
+      <DependentUpon>201907120431577_first.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

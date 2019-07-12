@@ -74,7 +74,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contracts\ICategoryRepository.cs" />
+    <Compile Include="Contracts\IItemRepository.cs" />
     <Compile Include="Contracts\IManufacturerRepository.cs" />
+    <Compile Include="Contracts\IOrderRepository.cs" />
     <Compile Include="Contracts\IProductRepository.cs" />
     <Compile Include="Contracts\IUserRepository.cs" />
     <Compile Include="Entities\BaseEntity.cs" />
@@ -85,19 +87,31 @@
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Mappers\CategoryMapper.cs" />
+    <Compile Include="Mappers\ItemMapper.cs" />
     <Compile Include="Mappers\ManufacturerMapper.cs" />
+    <Compile Include="Mappers\OrderMapper.cs" />
     <Compile Include="Mappers\ProductMapper.cs" />
     <Compile Include="Mappers\UserMapper.cs" />
-    <Compile Include="Migrations\201907031519414_initial.cs" />
-    <Compile Include="Migrations\201907031519414_initial.Designer.cs">
-      <DependentUpon>201907031519414_initial.cs</DependentUpon>
+    <Compile Include="Migrations\201907120434319_first.cs" />
+    <Compile Include="Migrations\201907120434319_first.Designer.cs">
+      <DependentUpon>201907120434319_first.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907120632157_product.cs" />
+    <Compile Include="Migrations\201907120632157_product.Designer.cs">
+      <DependentUpon>201907120632157_product.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907120642185_item.cs" />
+    <Compile Include="Migrations\201907120642185_item.Designer.cs">
+      <DependentUpon>201907120642185_item.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\BaseRepository.cs" />
     <Compile Include="Repository\CategoryRepository.cs" />
+    <Compile Include="Repository\ItemRepository.cs" />
     <Compile Include="Repository\ManufacturerRepository.cs" />
+    <Compile Include="Repository\OrderRepository.cs" />
     <Compile Include="Repository\ProductRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="StoreContext.cs" />
@@ -141,11 +155,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201907031519414_initial.resx">
-      <DependentUpon>201907031519414_initial.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -178,6 +187,17 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201907120434319_first.resx">
+      <DependentUpon>201907120434319_first.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907120632157_product.resx">
+      <DependentUpon>201907120632157_product.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907120642185_item.resx">
+      <DependentUpon>201907120642185_item.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

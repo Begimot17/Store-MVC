@@ -89,17 +89,8 @@ namespace Store.Dal.CodeFirst.Repository
                 product.Name = model.Name;
                 product.Logo = model.Logo;
                 product.Description = model.Description;
-                product.Manufacturer = new Manufacturer
-                {
-                    Id = model.Manufacturer.Id,
-                    Name = model.Manufacturer.Name,
-                    Logo = model.Manufacturer.Logo
-                };
-                product.Category = new Category
-                {
-                    Id = model.Category.Id,
-                    Name = model.Category.Name,
-                };
+                product.ManufacturerId = model.Manufacturer.Id;
+                product.CategoryId = model.Category.Id;
                 product.Price = model.Price;
                 product.Currency = model.Currency;
 
