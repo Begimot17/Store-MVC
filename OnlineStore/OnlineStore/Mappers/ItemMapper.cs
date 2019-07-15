@@ -14,9 +14,10 @@ namespace OnlineStore.Mappers
             return new ItemViewModel
             {
                 Id = model.Id,
-                Order=model.Order.ToViewModel(),
-                Product=model.Product.ToViewModel(),
-                Quantity=model.Quantity,
+                Order = model.Order.ToViewModel(),
+                Product = model.Product.ToViewModel(),
+                Quantity = model.Quantity,
+                AllPrice = model.AllPrice,
                 Status = model.Status
 
 
@@ -31,7 +32,9 @@ namespace OnlineStore.Mappers
                 Order = model.Order.ToViewModel(),
                 Product = model.Product.ToViewModel(),
                 Quantity = model.Quantity,
-                Status=model.Status
+                AllPrice = model.AllPrice,
+
+                Status = model.Status
             };
         }
 
@@ -53,6 +56,8 @@ namespace OnlineStore.Mappers
                 Order = model.Order.ToViewModel(),
                 Product = model.Product.ToViewModel(),
                 Quantity = model.Quantity,
+                AllPrice = model.AllPrice,
+
                 Status = model.Status
 
             };

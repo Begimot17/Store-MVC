@@ -1,16 +1,16 @@
 ﻿@model OnlineStore.Identity.CreateModel
 
 @{
-    ViewBag.Title = "Создание пользователя";
+    ViewBag.Title = "Create user";
 }
 
 @Html.ValidationSummary(false)
 @using (Html.BeginForm())
 {
-    <h2>Регистрация</h2>
+    <h2>Register</h2>
 
     <div class="form-group">
-        <label>Имя</label>
+        <label>Name</label>
         @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
     </div>
     <div class="form-group">
@@ -19,10 +19,10 @@
     </div>
 
     <div class="form-group">
-        <label>Пароль</label>
+        <label>Password</label>
         @Html.PasswordFor(x => x.Password, new { @class = "form-control" })
     </div>
-    <button type="submit" class="btn btn-primary">Создать</button>
+    <button type="submit" class="btn btn-primary">Create</button>
 
-    @Html.ActionLink("Отмена", "Index", null, new { @class = "btn btn-default" })
+    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-default" })
 }

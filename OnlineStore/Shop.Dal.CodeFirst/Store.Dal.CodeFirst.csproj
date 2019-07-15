@@ -96,6 +96,10 @@
     <Compile Include="Migrations\201907121200443_first.Designer.cs">
       <DependentUpon>201907121200443_first.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907131004263_allprice.cs" />
+    <Compile Include="Migrations\201907131004263_allprice.Designer.cs">
+      <DependentUpon>201907131004263_allprice.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -183,6 +187,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201907121200443_first.resx">
       <DependentUpon>201907121200443_first.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907131004263_allprice.resx">
+      <DependentUpon>201907131004263_allprice.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

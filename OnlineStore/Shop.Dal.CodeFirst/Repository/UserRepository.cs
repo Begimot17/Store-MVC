@@ -78,6 +78,15 @@ namespace Store.Dal.CodeFirst.Repository
             return user;
         }
 
-        
+        public UserDto GetUser(string UserName)
+        {
+            UserDto user = null;
+            WithContext(context =>
+            {
+                user = context.Users.Single(x => x.Login.Equals(UserName)).ToDto();
+            });
+            return user;
+
+        }
     }
 }

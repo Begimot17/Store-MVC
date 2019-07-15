@@ -11,6 +11,7 @@ namespace OnlineStore.Models
         public virtual ProductViewModel Product { get; set; }
         public virtual OrderViewModel Order { get; set; }
         public int Quantity { get; set; }
+        public decimal AllPrice { get; set; }
         public string Status{ get; set; }
     }
 }

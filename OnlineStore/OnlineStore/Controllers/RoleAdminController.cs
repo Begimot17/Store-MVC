@@ -12,7 +12,6 @@ using static OnlineStore.Models.UserViewModel;
 
 namespace OnlineStore.Controllers
 {
-    [Authorize(Roles = "Administrators")]
     public class RoleAdminController : Controller
     {
         private AppUserManager UserManager

@@ -24,6 +24,7 @@ namespace Store.Dal.CodeFirst.Entities
         [ForeignKey("OrderId")]
         public virtual Order Order { get; set; }
         public int Quantity { get; set; }
+        public decimal AllPrice { get; set; }
         public string Status { get; set; }
 
     }

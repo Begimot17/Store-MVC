@@ -25,6 +25,7 @@ namespace OnlineStore.Controllers
             _productRepository = new ProductRepository();
             _manufacturerRepository = new ManufacturerRepository();
         }
+        [Authorize(Roles = "Administrators")]
         [HttpGet]
         public ActionResult Create()
         {
@@ -92,8 +93,10 @@ namespace OnlineStore.Controllers
             {
                 products = products.Where(x => x.Name.ToLower().Contains(search.ToLower()));
             }
-            ViewBag.Products = products;
-            return View();
+
+            var model = new ProductsViewModel { Products = products };
+
+            return View(model);
         }
 
 

@@ -7,7 +7,7 @@ using System.Web;
 
 namespace OnlineStore.Mappers
 {
-    public static class Order
+    public static class OrderMapper
     {
         public static OrderViewModel ToViewModel(this OrderDto model)
         {

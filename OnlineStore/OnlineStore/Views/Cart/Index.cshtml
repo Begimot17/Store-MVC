@@ -21,7 +21,13 @@
             @Html.DisplayName("Product")
         </th>
         <th>
+            @Html.DisplayName("Product Price")
+        </th>
+        <th>
             @Html.DisplayName("Quantity")
+        </th>
+        <th>
+            @Html.DisplayName("AllPrice")
         </th>
         <th>
             @Html.DisplayName("Status")
@@ -35,7 +41,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.Order.Number)
         </td>
-        
+
         <td>
             @Html.DisplayFor(modelItem => item.Order.User.Name)
         </td>
@@ -43,7 +49,13 @@
             @Html.DisplayFor(modelItem => item.Product.Name)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.Product.Price)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Quantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AllPrice)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Status)

@@ -2,6 +2,10 @@
 using Microsoft.AspNet.Identity.Owin;
 using OnlineStore.Identity;
 using OnlineStore.Identity.infrastructure;
+using Store.Dal.CodeFirst.Contracts;
+using Store.Dal.CodeFirst.Repository;
+using Store.Dtos.Data.User;
+using System;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -11,15 +15,23 @@ namespace OnlineStore.Controllers
     [Authorize(Roles = "Administrators")]
     public class AdminController : Controller
     {
+        private IUserRepository _userRepository;
+
+        public AdminController()
+        {
+            _userRepository = new UserRepository();
+        }
         public ActionResult Index()
         {
             return View(UserManager.Users);
         }
+        [AllowAnonymous]
 
         public ActionResult Create()
         {
             return View();
         }
+        [AllowAnonymous]
 
         [HttpPost]
         public async Task<ActionResult> Create(CreateModel model)
@@ -29,7 +41,13 @@ namespace OnlineStore.Controllers
                 AppUser user = new AppUser { UserName = model.Name, Email = model.Email };
                 IdentityResult result =
                     await UserManager.CreateAsync(user, model.Password);
-
+                _userRepository.Create(new UserDto
+                {
+                    Id=Guid.Parse(user.Id),
+                    Login=user.UserName,
+                    Email=user.Email,
+                    Password=user.PasswordHash
+                });
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index");
@@ -57,6 +75,7 @@ namespace OnlineStore.Controllers
                 return HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
             }
         }
+
         [HttpPost]
         public async Task<ActionResult> Delete(string id)
         {
@@ -79,6 +98,7 @@ namespace OnlineStore.Controllers
                 return View("Error", new string[] { "Пользователь не найден" });
             }
         }
+
         public async Task<ActionResult> Edit(string id)
         {
             AppUser user = await UserManager.FindByIdAsync(id);

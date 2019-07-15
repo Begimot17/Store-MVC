@@ -1,7 +1,5 @@
-﻿using OnlineStore.Domain.Entities;
-using OnlineStore.Mappers;
+﻿using OnlineStore.Mappers;
 using OnlineStore.Models;
-using OnlineStore.WebUI.Models;
 using Store.Dal.CodeFirst.Contracts;
 using Store.Dal.CodeFirst.Entities;
 using Store.Dal.CodeFirst.Repository;
@@ -47,26 +45,21 @@ namespace OnlineStore.Controllers
 
             return View(items);
         }
-        [HttpGet]
-        public ActionResult AddToCart(Guid ProductId, int quantity = 3)
+        [HttpPost]
+        public ActionResult AddToCart(Guid Id,int Qty)
         {
-            var userView = _userRepository.GetUsers(null).ToViewModel();
+
+            var items = _itemRepository.GetItems().Count();
             ItemViewModel item = new ItemViewModel();
-            item.Product = _productRepository.GetProduct(ProductId).ToViewModel();
+            item.Product = _productRepository.GetProduct(Id).ToViewModel();
             item.Order = new OrderViewModel
             {
-
-                User = new UserViewModel
-                {
-                    Id = userView.Last().Id,
-                    Name = userView.Last().Name,
-                    Password = userView.Last().Password,
-                    Email = userView.Last().Email
-                }
+                User = _userRepository.GetUser(User.Identity.Name).ToViewModel()
                 ,
-                Number = "Number random"
+                Number = $"NZ-{items+1}"
             };
-            item.Quantity = quantity;
+            item.Quantity = Qty;
+            item.AllPrice = Qty * item.Product.Price;
             item.Status = StatusEnum.Cart.ToString();
             _itemRepository.Create(item.ToDto());
             return RedirectToAction("Index");
@@ -86,13 +79,13 @@ namespace OnlineStore.Controllers
 
         //    return RedirectToAction("Index");
         //}
-        [HttpGet]
-        public ActionResult Edit(Guid id)
-        {
-            var user = _itemRepository.GetItem(id)?.ToViewModel();
+        //[HttpGet]
+        //public ActionResult Edit(Guid id)
+        //{
+        //    var user = _itemRepository.GetItem(id)?.ToViewModel();
 
-            return View(user);
-        }
+        //    return View(user);
+        //}
         [HttpGet]
         public ActionResult Details(Guid id)
         {

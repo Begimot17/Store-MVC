@@ -13,6 +13,8 @@ namespace Store.Dal.CodeFirst.Contracts
         void Update(UserDto model);
         void Delete(Guid id);
         UserDto GetUser(Guid id);
+        UserDto GetUser(string UserName);
+
         IEnumerable<UserDto> GetUsers(UserFilterOptions options);
     }
 }

@@ -62,17 +62,17 @@ namespace Store.Dal.CodeFirst.Repository
                     Logo = x.Logo,
                     Price = x.Price,
                     Currency = x.Currency,
-                    Manufacturer = new ManufacturerDto
+                    Manufacturer = x.Manufacturer != null ? new ManufacturerDto
                     {
                         Id = x.Manufacturer.Id,
                         Name = x.Manufacturer.Name,
                         Logo = x.Manufacturer.Logo
-                    },
-                    Category = new CategoryDto
+                    }:null,
+                    Category = x.Category != null ? new CategoryDto
                     {
                         Id = x.Category.Id,
                         Name = x.Category.Name,
-                    },
+                    }:null,
                 }).ToArray();
             });
 

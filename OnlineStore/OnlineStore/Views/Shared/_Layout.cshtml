@@ -6,9 +6,28 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
     <style>
         body {
             background: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSF8EUsU8MfvgeGJMW5lxJtN3RTKZ_lP-AWz2epXJEFIpHde68u)
+        }
+        .quantity{
+            width: 70px;
+           
+        }
+        .mylab {
+            padding: 0;
+            width: auto;
+            font-weight:bold;
+            font-size:24px;
+        }
+        .myelem
+        {
+            margin: 5px 0 5px 0;
+            display: inline-block;
+        }
+        .mydiv{
+            padding:0;
         }
     </style>
 </head>
@@ -25,30 +44,46 @@
                         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Products/Index">Products</a>
+                        @*@Html.ActionLink("Products", "Index", "Products", null, new { @class = "nav-link" })*@
+                        <a href="/Products" class = "nav-link">Products</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Cart/Index">Cart</a>
+                        @*@Html.ActionLink("Cart", "Index", "Cart", "", new { @class = "nav-link" })*@
+                        <a href="/Cart" class = "nav-link">Cart</a>
+
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/User/Index">User</a>
+                       @* @Html.ActionLink("User", "Index", "User", "", new { @class = "nav-link" })*@
+                        <a href="/User" class = "nav-link">User</a>
+
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/RoleAdmin/Index">Roles</a>
+                       @* @Html.ActionLink("RoleAdmin", "Index", "", "RoleAdmin", new { @class = "nav-link" })*@
+                        <a href="/RoleAdmin" class = "nav-link">RoleAdmin</a>
+
                     </li>
+
+
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Autorize</a>
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            @if (!User.Identity.Name.IsEmpty())
+                            {<span>@User.Identity.Name</span>}
+                        else
+                        {
+                            <span>Autorize</span>
+                        }
+                        </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
-                            <a class="dropdown-item" href="/Account/Login">Log in</a>
-                            <a class="dropdown-item" href="/Admin/Create">Registration</a>
-                            <div class="dropdown-divider"></div>
+                            @if (User.Identity.Name.IsEmpty())
+                            {<a class="dropdown-item" href="/Account/Login?ReturnUrl=%2f">Log in</a>;
+                                <a class="dropdown-item" href="/Admin/Create">Registration</a>}
                             <a class="dropdown-item" href="/Account/Logout">Log Out</a>
                         </div>
                     </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="text" name="search" placeholder="Search" aria-label="Search">
-                    <button href="/Products/Index" class="btn btn-outline-info my-2 my-sm-0" value="Filter" type="submit">Search</button>
+                    <button href="/Products" class="btn btn-outline-info my-2 my-sm-0" value="Filter" type="submit">Search</button>
                 </form>
             </div>
         </nav>

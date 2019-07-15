@@ -16,5 +16,6 @@ namespace OnlineStore.Models
         public int Price { get; set; }
         public virtual CategoryViewModel Category { get; set; }
         public virtual ManufacturerViewModel Manufacturer { get; set; }
+        public int Qty { get; set; }
     }
 }

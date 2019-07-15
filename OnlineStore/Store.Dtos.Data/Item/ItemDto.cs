@@ -14,6 +14,7 @@ namespace Store.Dtos.Data.Item
         public virtual ProductDto Product { get; set; }
         public virtual OrderDto Order { get; set; }
         public int Quantity { get; set; }
+        public decimal AllPrice { get; set; }
         public string Status { get; set; }
 
     }

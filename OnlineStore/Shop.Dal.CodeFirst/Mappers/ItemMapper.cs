@@ -18,6 +18,8 @@ namespace Store.Dal.CodeFirst.Mappers
                 Product = model.Product.ToDto(),
                 Order = model.Order.ToDto(),
                 Quantity = model.Quantity,
+                AllPrice = model.AllPrice,
+
                 Status = model.Status
             };
         }
@@ -35,6 +37,8 @@ namespace Store.Dal.CodeFirst.Mappers
                     Number = model.Order.Number
                 },
                 Quantity = model.Quantity,
+                AllPrice = model.AllPrice,
+
                 Status = model.Status
             };
         }

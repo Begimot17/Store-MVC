@@ -52,50 +52,51 @@ namespace Store.Dal.CodeFirst.Repository
         public IEnumerable<ItemDto> GetItems()
         {
             var result = new ItemDto[] { };
-
-            WithContext(context =>
-            {
-                result = context.Items
-                .Select(x => new ItemDto
+            
+                WithContext(context =>
                 {
-                    Id = x.Id,
-                    Product = new ProductDto
+                    result = context.Items
+                    .Select(x => new ItemDto
                     {
-                        Id = x.Product.Id,
-                        Name = x.Product.Name,
-                        Description = x.Product.Description,
-                        Logo = x.Product.Logo,
-                        Price = x.Product.Price,
-                        Currency = x.Product.Currency,
-                        Manufacturer = new ManufacturerDto
+                        Id = x.Id,
+                        Product = new ProductDto
                         {
-                            Id = x.Product.Manufacturer.Id,
-                            Name = x.Product.Manufacturer.Name,
-                            Logo = x.Product.Manufacturer.Logo
+                            Id = x.Product.Id,
+                            Name = x.Product.Name,
+                            Description = x.Product.Description,
+                            Logo = x.Product.Logo,
+                            Price = x.Product.Price,
+                            Currency = x.Product.Currency,
+                            Manufacturer = x.Product.Manufacturer != null ? new ManufacturerDto
+                            {
+                                Id = x.Product.Manufacturer.Id,
+                                Name = x.Product.Manufacturer.Name,
+                                Logo = x.Product.Manufacturer.Logo
+                            }: null,
+                            Category =x.Product.Category !=null ? new CategoryDto
+                            {
+                                Id = x.Product.Manufacturer.Id,
+                                Name = x.Product.Manufacturer.Name,
+                            }:null,
                         },
-                        Category = new CategoryDto
+                        Order = x.Order != null ? new OrderDto
                         {
-                            Id = x.Product.Manufacturer.Id,
-                            Name = x.Product.Manufacturer.Name,
-                        },
-                    },
-                    Order = new OrderDto
-                    {
-                        Id = x.Order.Id,
-                        User = new UserDto
-                        {
-                            Id = x.Order.User.Id,
-                            Login = x.Order.User.Login,
-                            Password = x.Order.User.Password,
-                            Email = x.Order.User.Email,
+                            Id = x.Order.Id,
+                            User = x.Order.User != null ? new UserDto
+                            {
+                                Id = x.Order.User.Id,
+                                Login = x.Order.User.Login,
+                                Password = x.Order.User.Password,
+                                Email = x.Order.User.Email,
 
-                        },
-                        Number = x.Order.Number
-                    },
-                    Quantity = x.Quantity,
-                    Status = x.Status,
-                }).ToArray();
-            });
+                            } : null,
+                            Number = x.Order.Number
+                        } : null,
+                        AllPrice = x.AllPrice,
+                        Quantity = x.Quantity,
+                        Status = x.Status,
+                    }).ToArray();
+                });
 
             return result;
         }
@@ -110,6 +111,7 @@ namespace Store.Dal.CodeFirst.Repository
                 item.ProductId = model.Product.Id;
                 item.OrderId = model.Order.Id;
                 item.Quantity = model.Quantity;
+                item.AllPrice = model.AllPrice;
                 item.Status = model.Status;
 
                 context.SaveChanges();
