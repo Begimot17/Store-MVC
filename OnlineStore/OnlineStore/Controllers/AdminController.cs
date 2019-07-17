@@ -50,7 +50,9 @@ namespace OnlineStore.Controllers
                 });
                 if (result.Succeeded)
                 {
+                   result= await UserManager.AddToRoleAsync(user.Id, "Users");
                     return RedirectToAction("Index");
+
                 }
                 else
                 {
@@ -95,7 +97,7 @@ namespace OnlineStore.Controllers
             }
             else
             {
-                return View("Error", new string[] { "Пользователь не найден" });
+                return View("Error", new string[] { "User is not found" });
             }
         }
 
@@ -160,7 +162,7 @@ namespace OnlineStore.Controllers
             }
             else
             {
-                ModelState.AddModelError("", "Пользователь не найден");
+                ModelState.AddModelError("", "User is not found");
             }
             return View(user);
         }

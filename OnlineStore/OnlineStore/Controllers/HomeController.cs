@@ -32,10 +32,10 @@ namespace OnlineStore.Controllers
             Dictionary<string, object> dict = new Dictionary<string, object>
             {
                 { "Action", actionName },
-                { "Пользователь", HttpContext.User.Identity.Name },
-                { "Аутентифицирован?", HttpContext.User.Identity.IsAuthenticated },
-                { "Тип аутентификации", HttpContext.User.Identity.AuthenticationType },
-                { "В роли Users?", HttpContext.User.IsInRole("Users") }
+                { "User", HttpContext.User.Identity.Name },
+                { "Autorize?", HttpContext.User.Identity.IsAuthenticated },
+                { "Type Autorize", HttpContext.User.Identity.AuthenticationType },
+                { "In role Users?", HttpContext.User.IsInRole("Users") }
             };
 
             return dict;
@@ -75,15 +75,14 @@ namespace OnlineStore.Controllers
             }
         }
 
-        // Вспомогательный метод, загружающий название элемента перечисления
-        // из атрибута Display
+        
         [NonAction]
         public static string GetCityName<TEnum>(TEnum item)
             where TEnum : struct, IConvertible
         {
             if (!typeof(TEnum).IsEnum)
             {
-                throw new ArgumentException("Тип TEnum должен быть перечислением");
+                throw new ArgumentException("Type TEnum to be Enum");
             }
             else
                 return item.GetType()

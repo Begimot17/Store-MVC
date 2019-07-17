@@ -4,11 +4,8 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Cart</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -50,12 +47,14 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Product.Price)
+            @Html.DisplayFor(modelItem => item.Product.Currency)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Quantity)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.AllPrice)
+            @Html.DisplayFor(modelItem => item.Product.Currency)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Status)

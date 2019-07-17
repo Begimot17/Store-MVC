@@ -24,7 +24,7 @@ namespace OnlineStore.Controllers
         {
             if (HttpContext.User.Identity.IsAuthenticated)
             {
-                return View("Error", new string[] { "В доступе отказано" });
+                return View("Error", new string[] { "In access is denied" });
             }
 
             ViewBag.returnUrl = returnUrl;
@@ -40,7 +40,7 @@ namespace OnlineStore.Controllers
 
             if (user == null)
             {
-                ModelState.AddModelError("", "Некорректное имя или пароль.");
+                ModelState.AddModelError("", "Non correct Name or Password.");
             }
             else
             {

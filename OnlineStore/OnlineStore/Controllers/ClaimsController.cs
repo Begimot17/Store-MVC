@@ -17,7 +17,7 @@ namespace OnlineStore.Controllers
 
             if (ident == null)
             {
-                return View("Error", new string[] { "Нет доступных требований" });
+                return View("Error", new string[] { "No available requirements" });
             }
             else
             {

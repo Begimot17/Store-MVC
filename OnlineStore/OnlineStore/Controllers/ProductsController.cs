@@ -84,18 +84,36 @@ namespace OnlineStore.Controllers
             return RedirectToAction("Index");
         }
 
-
+        
         [HttpGet]
-        public ActionResult Index(string search = null)
+        public ActionResult Index(string search= null)
         {
             var products = _productRepository.GetProducts().ToViewModel() ?? new List<ProductViewModel>();
+            var categories = _categoryRepository.GetCategory().ToViewModel() ?? new List<CategoryViewModel>();
             if (search != null)
             {
                 products = products.Where(x => x.Name.ToLower().Contains(search.ToLower()));
             }
-
+            ViewBag.Category = new SelectList(categories, "Id", "Name"); 
             var model = new ProductsViewModel { Products = products };
-
+            return View(model);
+        }
+        [HttpGet]
+        public ActionResult Index(Guid? CategoryId)
+        {
+            var products = _productRepository.GetProducts().ToViewModel() ?? new List<ProductViewModel>();
+            var categories = _categoryRepository.GetCategory().ToViewModel() ?? new List<CategoryViewModel>();
+            if (CategoryId != null)
+            {
+                products = products.Where(x => x.Category.Name ==
+                _categoryRepository.GetCategory((Guid)CategoryId).Name);
+            }
+            if (search != null)
+            {
+                products = products.Where(x => x.Name.ToLower().Contains(search.ToLower()));
+            }
+            ViewBag.Category = new SelectList(categories, "Id", "Name");
+            var model = new ProductsViewModel { Products = products };
             return View(model);
         }
 
@@ -104,7 +122,6 @@ namespace OnlineStore.Controllers
         public ActionResult Details(Guid id)
         {
             var product = _productRepository.GetProduct(id)?.ToViewModel();
-
             return View(product);
         }
         [Authorize(Roles = "Administrators")]

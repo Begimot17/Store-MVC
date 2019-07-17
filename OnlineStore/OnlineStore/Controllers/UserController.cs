@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace OnlineStore.Controllers
 {
-    
+    [Authorize(Roles = "Administrators")]
     public class UserController:Controller
     {
         private IUserRepository _userRepository;

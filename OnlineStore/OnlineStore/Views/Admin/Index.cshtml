@@ -7,7 +7,7 @@
 
 <div class="panel panel-primary">
     <div class="panel-heading">
-        Учетные записи
+       Accounts
     </div>
     <table class="table table-striped">
         <tr>
@@ -33,7 +33,7 @@
                     <td>
                         @using (Html.BeginForm("Delete", "Admin", new { id = user.Id }))
                         {
-                            @Html.ActionLink("Изменить", "Edit", new { id = user.Id },
+                            @Html.ActionLink("Edit", "Edit", new { id = user.Id },
                                 new { @class = "btn btn-primary btn-xs", style = "float: left; margin-right: 10px" })
                             <button class="btn btn-danger btn-xs" type="submit">Delete</button>
                         }

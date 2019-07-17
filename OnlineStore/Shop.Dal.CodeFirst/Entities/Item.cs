@@ -13,7 +13,8 @@ namespace Store.Dal.CodeFirst.Entities
         Purchase,
         Requested,
         Approved,
-        Realeased
+        Realeased,
+        Dismissed
     };
     public class Item:BaseEntity
     {

@@ -38,19 +38,19 @@
     </div>
 
     <div class="panel panel-primary">
-        <div class="panel-heading">Удалить из роли <b>@Model.Role.Name</b></div>
+        <div class="panel-heading">Delete of role <b>@Model.Role.Name</b></div>
         <table class="table table-striped">
             @if (Model.Members.Count() == 0)
             {
                 <tr>
-                    <td colspan="2">Нет пользователей в роли</td>
+                    <td colspan="2">No users in role</td>
                 </tr>
             }
             else
             {
                 <tr>
                     <td>User ID</td>
-                    <td>Удалить из роли</td>
+                    <td>Delete of role</td>
                 </tr>
                 foreach (AppUser user in Model.Members)
                 {
@@ -64,6 +64,6 @@
             }
         </table>
     </div>
-    <button type="submit" class="btn btn-primary">Сохранить</button>
-    @Html.ActionLink("Отмена", "Index", null, new { @class = "btn btn-default" })
+    <button type="submit" class="btn btn-primary">Save</button>
+    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-default" })
 }

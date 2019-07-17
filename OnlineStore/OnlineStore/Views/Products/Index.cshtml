@@ -10,11 +10,15 @@
         margin-bottom: 5px;
     }
 </style>
-<div>
+<form action="/Products/Index" method="Get">
     <a href="/Products/Create" class="btn btn-primary">Add Product</a>
     <a href="/Products/AddManufacture" class="btn btn-primary">Add Manufacture</a>
-    <a href="/Products/AddCategory" class="btn btn-primary">Add Category</a>
-</div>
+    <a href="/Products/AddCategory" class="btn btn-primary">Add Category</a><br />
+    @Html.Label("Category", htmlAttributes: new { @class = "control-label col-md-2" })
+    @Html.DropDownList("CategoryId", ViewBag.Category as SelectList, "", new { @class = "form-control text-box single-line" })
+    <button class="btn btn-success " style="margin-left:4px">Filter</button>
+</form>
+   
 
 @foreach (var item in Model.Products)
 {

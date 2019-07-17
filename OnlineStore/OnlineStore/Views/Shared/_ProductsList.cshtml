@@ -12,11 +12,14 @@
         </h3>
         <span class="lead">@Model.Description</span>
         <div class="col-md-10 mydiv">
-            @Html.Label("Qty->", htmlAttributes: new { @class = "control-label col-md-2  myelem mylab" })
-            @Html.EditorFor(model => model.Qty, new { htmlAttributes = new { @class = "form-control quantity myelem", Value = "1" } })
-            <a href="/Cart/AppData?Id=@Model.Id&Qty=@Model.Qty" value="To Cart" class="btn btn-success" />
-            <a class="btn btn-info " href="/Products/Details/@Model.Id">Details</a>
+            <form action="/Cart/AddToCart" method="get">
+                @Html.LabelFor(model => Model.Qty)
+                <input type="text" name="Qty" class="form-control quantity myelem" value="1" width="40" />
+
+                <button name="Id" class="btn btn-success " style="margin-left:4px" value="@Model.Id">To Cart</button>
+            </form>
+            
+            <a class="btn btn-info " style="margin-left:30px" href="/Products/Details/@Model.Id">Details</a>
             <a class="btn btn-danger " href="/Products/Delete/@Model.Id">Delete</a>
         </div>
     </div>
-

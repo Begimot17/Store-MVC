@@ -12,6 +12,7 @@ using System.Web.Mvc;
 
 namespace OnlineStore.Controllers
 {
+    [Authorize]
     public class CartController : Controller
     {
         private IItemRepository _itemRepository;
@@ -34,7 +35,15 @@ namespace OnlineStore.Controllers
         public ActionResult Buy(Guid Id)
         {
             var items = _itemRepository.GetItem(Id);
-            items.Status = StatusEnum.Purchase.ToString();
+            if (User.IsInRole("Users"))
+            {
+                items.Status = StatusEnum.Purchase.ToString();
+
+            }
+            else if (User.IsInRole("Manager"))
+            {
+                items.Status = StatusEnum.Approved.ToString();
+            }
             _itemRepository.Update(items);
             return RedirectToAction("Index");
         }
@@ -42,11 +51,24 @@ namespace OnlineStore.Controllers
         public ActionResult Index()
         {
             var items = _itemRepository.GetItems().ToViewModel() ?? new List<ItemViewModel>();
+            if (User.IsInRole("Users"))
+            {
+                items = items.Where(x => x.Order.User.Name == User.Identity.Name);
+
+            }
+            else if (User.IsInRole("Manager"))
+            {
+                items = items.Where(x => x.Status == "Purchase");
+            }
+            else
+            {
+                return View(items);
+            }
 
             return View(items);
         }
-        [HttpPost]
-        public ActionResult AddToCart(Guid Id,int Qty)
+        [HttpGet]
+        public ActionResult AddToCart(Guid Id, int Qty)
         {
 
             var items = _itemRepository.GetItems().Count();
@@ -56,7 +78,7 @@ namespace OnlineStore.Controllers
             {
                 User = _userRepository.GetUser(User.Identity.Name).ToViewModel()
                 ,
-                Number = $"NZ-{items+1}"
+                Number = $"NZ-{items + 1}"
             };
             item.Quantity = Qty;
             item.AllPrice = Qty * item.Product.Price;
@@ -67,7 +89,18 @@ namespace OnlineStore.Controllers
         [HttpGet]
         public ActionResult Delete(Guid id)
         {
-            _itemRepository.Delete(id);
+            var items = _itemRepository.GetItem(id);
+
+            if (User.IsInRole("Manager"))
+            {
+                items.Status = StatusEnum.Dismissed.ToString();
+            }
+            else if (User.IsInRole("Users"))
+            {
+                items.Status = StatusEnum.Realeased.ToString();
+            }
+            _itemRepository.Update(items);
+            //_itemRepository.Delete(id);
 
             return RedirectToAction("Index");
         }

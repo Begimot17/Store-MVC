@@ -12,6 +12,8 @@ using static OnlineStore.Models.UserViewModel;
 
 namespace OnlineStore.Controllers
 {
+    [Authorize(Roles = "Administrators")]
+
     public class RoleAdminController : Controller
     {
         private AppUserManager UserManager
@@ -78,7 +80,7 @@ namespace OnlineStore.Controllers
             }
             else
             {
-                return View("Error", new string[] { "Роль не найдена" });
+                return View("Error", new string[] { "Role Not Found" });
             }
         }
 
@@ -135,7 +137,7 @@ namespace OnlineStore.Controllers
                 return RedirectToAction("Index");
 
             }
-            return View("Error", new string[] { "Роль не найдена" });
+            return View("Error", new string[] { "Role Not Found" });
         }
     }
 }

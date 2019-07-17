@@ -305,13 +305,12 @@
     <Content Include="Views\RoleAdmin\Edit.cshtml" />
     <Content Include="Views\Home\UserProps.cshtml" />
     <Content Include="Views\Claims\Index.cshtml" />
-    <Content Include="Views\Shared\ProductSummary.cshtml" />
     <Content Include="Views\Products\AddManufacture.cshtml" />
     <Content Include="Views\Products\AddCategory.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
-    <Content Include="Views\Cart\Details.cshtml" />
     <Content Include="Views\Shared\_ProductsList.cshtml" />
+    <Content Include="Views\Cart\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
