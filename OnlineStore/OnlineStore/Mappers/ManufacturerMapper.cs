@@ -1,5 +1,5 @@
-﻿using OnlineStore.Models;
-using Store.Dtos.Data.Manufacturer;
+﻿using OnlineStore.BLL.Dtos.Manufacturer;
+using OnlineStore.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ namespace OnlineStore.Mappers
 {
     public static class ManufacturerMapper
     {
-        public static ManufacturerViewModel ToViewModel(this ManufacturerDto model)
+        public static ManufacturerViewModel ToViewModel(this ManufacturerBllDto model)
         {
             return new ManufacturerViewModel
             {
@@ -19,9 +19,9 @@ namespace OnlineStore.Mappers
             };
         }
 
-        public static ManufacturerDto ToDto(this ManufacturerViewModel model)
+        public static ManufacturerBllDto ToDto(this ManufacturerViewModel model)
         {
-            return new ManufacturerDto
+            return new ManufacturerBllDto
             {
                 Id = model.Id,
                 Name = model.Name,
@@ -29,19 +29,19 @@ namespace OnlineStore.Mappers
             };
         }
 
-        public static IEnumerable<ManufacturerViewModel> ToViewModel(this IEnumerable<ManufacturerDto> models)
+        public static IEnumerable<ManufacturerViewModel> ToViewModel(this IEnumerable<ManufacturerBllDto> models)
         {
             return models.Select(x => x.ToViewModel());
         }
 
-        public static IEnumerable<ManufacturerDto> ToDto(this IEnumerable<ManufacturerViewModel> models)
+        public static IEnumerable<ManufacturerBllDto> ToDto(this IEnumerable<ManufacturerViewModel> models)
         {
             return models.Select(x => x.ToDto());
         }
 
-        public static ManufacturerDto ToViewModel(this ManufacturerViewModel model)
+        public static ManufacturerBllDto ToViewModel(this ManufacturerViewModel model)
         {
-            return new ManufacturerDto
+            return new ManufacturerBllDto
             {
                 Id = model.Id,
                 Name = model.Name,

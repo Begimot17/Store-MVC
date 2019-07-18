@@ -1,56 +1,62 @@
-﻿using OnlineStore.Mappers;
+﻿using OnlineStore.BLL.Contracts.Item;
+using OnlineStore.BLL.Contracts.Order;
+using OnlineStore.BLL.Contracts.Product;
+using OnlineStore.BLL.Contracts.User;
+using OnlineStore.Mappers;
 using OnlineStore.Models;
-using Store.Dal.CodeFirst.Contracts;
-using Store.Dal.CodeFirst.Entities;
-using Store.Dal.CodeFirst.Repository;
-using Store.Dtos.Data.Product;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace OnlineStore.Controllers
 {
+    public enum Status
+    {
+        Cart,
+        Purchase,
+        Requested,
+        Approved,
+        Realeased,
+        Dismissed
+    }
     [Authorize]
     public class CartController : Controller
     {
-        private IItemRepository _itemRepository;
-        private IOrderRepository _orderRepository;
-        private IProductRepository _productRepository;
-        private IUserRepository _userRepository;
+        private IItemService _itemService;
+        private IOrderService _orderService;
+        private IProductService _productService;
+        private IUserService _userService;
 
 
-        public CartController()
+        public CartController(IItemService itemService, IOrderService orderService, IProductService productService, IUserService userService)
         {
-            _itemRepository = new ItemRepository();
-            _orderRepository = new OrderRepository();
-            _productRepository = new ProductRepository();
-            _userRepository = new UserRepository();
-
-
+            _itemService = itemService;
+            _orderService = orderService;
+            _productService = productService;
+            _userService = userService;
 
         }
         [HttpGet]
         public ActionResult Buy(Guid Id)
         {
-            var items = _itemRepository.GetItem(Id);
+            var items = _itemService.GetItem(Id);
             if (User.IsInRole("Users"))
             {
-                items.Status = StatusEnum.Purchase.ToString();
+                items.Status = Status.Purchase.ToString();
 
             }
             else if (User.IsInRole("Manager"))
             {
-                items.Status = StatusEnum.Approved.ToString();
+                items.Status = Status.Approved.ToString();
             }
-            _itemRepository.Update(items);
+            _itemService.Update(items);
             return RedirectToAction("Index");
         }
         [HttpGet]
         public ActionResult Index()
         {
-            var items = _itemRepository.GetItems().ToViewModel() ?? new List<ItemViewModel>();
+            var items = _itemService.GetItems().ToViewModel() ?? new List<ItemViewModel>();
             if (User.IsInRole("Users"))
             {
                 items = items.Where(x => x.Order.User.Name == User.Identity.Name);
@@ -71,35 +77,35 @@ namespace OnlineStore.Controllers
         public ActionResult AddToCart(Guid Id, int Qty)
         {
 
-            var items = _itemRepository.GetItems().Count();
+            var items = _itemService.GetItems().Count();
             ItemViewModel item = new ItemViewModel();
-            item.Product = _productRepository.GetProduct(Id).ToViewModel();
+            item.Product = _productService.GetProduct(Id).ToViewModel();
             item.Order = new OrderViewModel
             {
-                User = _userRepository.GetUser(User.Identity.Name).ToViewModel()
+                User = _userService.GetUser(User.Identity.Name).ToViewModel()
                 ,
                 Number = $"NZ-{items + 1}"
             };
             item.Quantity = Qty;
             item.AllPrice = Qty * item.Product.Price;
-            item.Status = StatusEnum.Cart.ToString();
-            _itemRepository.Create(item.ToDto());
+            item.Status = Status.Cart.ToString();
+            _itemService.Create(item.ToDto());
             return RedirectToAction("Index");
         }
         [HttpGet]
         public ActionResult Delete(Guid id)
         {
-            var items = _itemRepository.GetItem(id);
+            var items = _itemService.GetItem(id);
 
             if (User.IsInRole("Manager"))
             {
-                items.Status = StatusEnum.Dismissed.ToString();
+                items.Status = Status.Dismissed.ToString();
             }
             else if (User.IsInRole("Users"))
             {
-                items.Status = StatusEnum.Realeased.ToString();
+                items.Status = Status.Realeased.ToString();
             }
-            _itemRepository.Update(items);
+            _itemService.Update(items);
             //_itemRepository.Delete(id);
 
             return RedirectToAction("Index");
@@ -122,7 +128,7 @@ namespace OnlineStore.Controllers
         [HttpGet]
         public ActionResult Details(Guid id)
         {
-            var user = _itemRepository.GetItem(id)?.ToViewModel();
+            var user = _itemService.GetItem(id)?.ToViewModel();
 
             return View(user);
         }

@@ -3,8 +3,6 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using OnlineStore.Identity;
 using OnlineStore.Identity.infrastructure;
-using Store.Dal.CodeFirst;
-using Store.Dal.CodeFirst.Entities;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;

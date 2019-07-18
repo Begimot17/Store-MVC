@@ -1,17 +1,13 @@
-﻿using OnlineStore.Models;
-using Store.Dal.CodeFirst.Contracts;
-using Store.Dal.CodeFirst.Repository;
-using Store.Dtos.Data.User;
-using System;
+﻿using OnlineStore.BLL.Dtos.User;
+using OnlineStore.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace OnlineStore.Mappers
 {
     public static class UserMapper
     {
-        public static UserViewModel ToViewModel(this UserDto model)
+        public static UserViewModel ToViewModel(this UserBllDto model)
         {
             return new UserViewModel
             {
@@ -22,9 +18,9 @@ namespace OnlineStore.Mappers
             };
         }
 
-        public static UserDto ToDto(this UserViewModel model)
+        public static UserBllDto ToDto(this UserViewModel model)
         {
-            return new UserDto
+            return new UserBllDto
             {
                 Id = model.Id,
                 Login = model.Name,
@@ -33,19 +29,19 @@ namespace OnlineStore.Mappers
             };
         }
 
-        public static IEnumerable<UserViewModel> ToViewModel(this IEnumerable<UserDto> models)
+        public static IEnumerable<UserViewModel> ToViewModel(this IEnumerable<UserBllDto> models)
         {
             return models.Select(x => x.ToViewModel());
         }
 
-        public static IEnumerable<UserDto> ToViewModel(this IEnumerable<UserViewModel> models)
+        public static IEnumerable<UserBllDto> ToViewModel(this IEnumerable<UserViewModel> models)
         {
             return models.Select(x => x.ToViewModel());
         }
 
-        public static UserDto ToViewModel(this UserViewModel model)
+        public static UserBllDto ToViewModel(this UserViewModel model)
         {
-            return new UserDto
+            return new UserBllDto
             {
                 Id = model.Id,
                 Login = model.Name,

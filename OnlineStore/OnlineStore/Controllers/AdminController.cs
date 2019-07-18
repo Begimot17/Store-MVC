@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using OnlineStore.BLL.Contracts.User;
+using OnlineStore.BLL.Dtos.User;
 using OnlineStore.Identity;
 using OnlineStore.Identity.infrastructure;
-using Store.Dal.CodeFirst.Contracts;
-using Store.Dal.CodeFirst.Repository;
-using Store.Dtos.Data.User;
 using System;
 using System.Threading.Tasks;
 using System.Web;
@@ -15,11 +14,11 @@ namespace OnlineStore.Controllers
     [Authorize(Roles = "Administrators")]
     public class AdminController : Controller
     {
-        private IUserRepository _userRepository;
+        private IUserService _userService;
 
-        public AdminController()
+        public AdminController(IUserService userService)
         {
-            _userRepository = new UserRepository();
+            _userService = userService;
         }
         public ActionResult Index()
         {
@@ -41,7 +40,7 @@ namespace OnlineStore.Controllers
                 AppUser user = new AppUser { UserName = model.Name, Email = model.Email };
                 IdentityResult result =
                     await UserManager.CreateAsync(user, model.Password);
-                _userRepository.Create(new UserDto
+                _userService.Create(new UserBllDto
                 {
                     Id=Guid.Parse(user.Id),
                     Login=user.UserName,

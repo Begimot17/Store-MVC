@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace Store.Dtos.Data
 {
-    class Programm
+    class Program
     {
         static void Main(string[] args)
         {
-            Console.ReadKey();
-
         }
     }
 }

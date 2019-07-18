@@ -11,6 +11,8 @@ namespace Store.Dtos.Data.Item
     public class ItemDto
     {
         public Guid Id { get; set; }
+        public Guid ProductId { get; set; }
+        public Guid OrderId { get; set; }
         public virtual ProductDto Product { get; set; }
         public virtual OrderDto Order { get; set; }
         public int Quantity { get; set; }

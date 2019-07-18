@@ -47,6 +47,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.9.2.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.9.2\lib\net45\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -147,7 +150,8 @@
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
     <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
-      <HintPath>..\packages\WebActivatorEx.2.0.3\lib\net40\WebActivatorEx.dll</HintPath>
+      <HintPath>..\packages\WebActivatorEx.2.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -319,13 +323,21 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Shop.Dal.CodeFirst\Store.Dal.CodeFirst.csproj">
-      <Project>{22541b84-78b6-4dd0-ad28-feaf52ae2cd9}</Project>
-      <Name>Store.Dal.CodeFirst</Name>
+    <ProjectReference Include="..\OnlineStore.BLL.Contracts\OnlineStore.BLL.Contracts.csproj">
+      <Project>{a566853d-1d0b-400a-a653-b8389b0ec7ee}</Project>
+      <Name>OnlineStore.BLL.Contracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Store.Dtos.Data\Store.Dtos.Data.csproj">
-      <Project>{06bb55ba-a53a-4e6f-adc6-c0d45f2ab12e}</Project>
-      <Name>Store.Dtos.Data</Name>
+    <ProjectReference Include="..\OnlineStore.BLL.Dtos\OnlineStore.BLL.Dtos.csproj">
+      <Project>{697d9ad9-133f-4dcc-b941-baf4ad5da104}</Project>
+      <Name>OnlineStore.BLL.Dtos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OnlineStore.Common\OnlineStore.Common.csproj">
+      <Project>{E39D739E-F9A1-47EF-8E92-5B97C8B1B27F}</Project>
+      <Name>OnlineStore.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OnlineStore.IOC\OnlineStore.IOC.csproj">
+      <Project>{18b2d821-b18b-4e93-a1b1-e1bfb9d486a3}</Project>
+      <Name>OnlineStore.IOC</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

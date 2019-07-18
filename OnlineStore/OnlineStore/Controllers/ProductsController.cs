@@ -1,36 +1,37 @@
-﻿using Store.Dal.CodeFirst.Repository;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Store.Dal.CodeFirst.Contracts;
 using System.Web;
 using System.Web.Mvc;
 using OnlineStore.Mappers;
 using OnlineStore.Models;
 using OnlineStore.Enum;
+using OnlineStore.BLL.Contracts.Category;
+using OnlineStore.BLL.Contracts.Manufacturer;
+using OnlineStore.BLL.Contracts.Product;
 
 namespace OnlineStore.Controllers
 {
     public class ProductsController : Controller
     {
-        private ICategoryRepository _categoryRepository;
+        private ICategoryService _categoryService;
 
-        private IManufacturerRepository _manufacturerRepository;
+        private IManufacturerService _manufacturerService;
 
-        private IProductRepository _productRepository;
-
-        public ProductsController()
+        private IProductService _productService;
+        public ProductsController(ICategoryService CategoryService, 
+            IManufacturerService ManufacturerService, IProductService ProductService)
         {
-            _categoryRepository = new CategoryRepository();
-            _productRepository = new ProductRepository();
-            _manufacturerRepository = new ManufacturerRepository();
+            _categoryService =  CategoryService;
+            _productService =  ProductService;
+            _manufacturerService =  ManufacturerService;
         }
         [Authorize(Roles = "Administrators")]
         [HttpGet]
         public ActionResult Create()
         {
-            var categories = _categoryRepository.GetCategory().ToViewModel() ?? new List<CategoryViewModel>();
-            var manufacturers = _manufacturerRepository.GetManufacturer().ToViewModel() ?? new List<ManufacturerViewModel>();
+            var categories = _categoryService.GetCategory().ToViewModel() ?? new List<CategoryViewModel>();
+            var manufacturers = _manufacturerService.GetManufacturer().ToViewModel() ?? new List<ManufacturerViewModel>();
             var currency = System.Enum.GetValues(typeof(Сurrency));
             ViewBag.Currency = new SelectList(currency);
             ViewBag.Category = new SelectList(categories, "Id", "Name"); ;
@@ -41,9 +42,9 @@ namespace OnlineStore.Controllers
         [HttpPost]
         public ActionResult Create(ProductViewModel model)
         {
-            model.Category = _categoryRepository.GetCategory(model.Category.Id).ToViewModel();
-            model.Manufacturer = _manufacturerRepository.GetManufacturer(model.Manufacturer.Id).ToViewModel();
-            _productRepository.Create(model.ToDto());
+            model.Category = _categoryService.GetCategory(model.Category.Id).ToViewModel();
+            model.Manufacturer = _manufacturerService.GetManufacturer(model.Manufacturer.Id).ToViewModel();
+            _productService.Create(model.ToDto());
             return RedirectToAction("Index");
         }
         [Authorize(Roles = "Administrators")]
@@ -56,7 +57,7 @@ namespace OnlineStore.Controllers
         [HttpPost]
         public ActionResult AddManufacture(ManufacturerViewModel model)
         {
-            _manufacturerRepository.Create(model.ToDto());
+            _manufacturerService.Create(model.ToDto());
 
             return RedirectToAction("Index");
         }
@@ -70,7 +71,7 @@ namespace OnlineStore.Controllers
         [HttpGet]
         public ActionResult Delete(Guid id)
         {
-            _productRepository.Delete(id);
+            _productService.Delete(id);
 
             return RedirectToAction("Index");
         }
@@ -79,34 +80,21 @@ namespace OnlineStore.Controllers
         [HttpPost]
         public ActionResult AddCategory(CategoryViewModel model)
         {
-            _categoryRepository.Create(model.ToDto());
+            _categoryService.Create(model.ToDto());
 
             return RedirectToAction("Index");
         }
 
         
         [HttpGet]
-        public ActionResult Index(string search= null)
+        public ActionResult Index(Guid? CategoryId,string search = null)
         {
-            var products = _productRepository.GetProducts().ToViewModel() ?? new List<ProductViewModel>();
-            var categories = _categoryRepository.GetCategory().ToViewModel() ?? new List<CategoryViewModel>();
-            if (search != null)
-            {
-                products = products.Where(x => x.Name.ToLower().Contains(search.ToLower()));
-            }
-            ViewBag.Category = new SelectList(categories, "Id", "Name"); 
-            var model = new ProductsViewModel { Products = products };
-            return View(model);
-        }
-        [HttpGet]
-        public ActionResult Index(Guid? CategoryId)
-        {
-            var products = _productRepository.GetProducts().ToViewModel() ?? new List<ProductViewModel>();
-            var categories = _categoryRepository.GetCategory().ToViewModel() ?? new List<CategoryViewModel>();
+            var products = _productService.GetProducts().ToViewModel() ?? new List<ProductViewModel>();
+            var categories = _categoryService.GetCategory().ToViewModel() ?? new List<CategoryViewModel>();
             if (CategoryId != null)
             {
                 products = products.Where(x => x.Category.Name ==
-                _categoryRepository.GetCategory((Guid)CategoryId).Name);
+                _categoryService.GetCategory((Guid)CategoryId).Name);
             }
             if (search != null)
             {
@@ -121,7 +109,7 @@ namespace OnlineStore.Controllers
         [HttpGet]
         public ActionResult Details(Guid id)
         {
-            var product = _productRepository.GetProduct(id)?.ToViewModel();
+            var product = _productService.GetProduct(id)?.ToViewModel();
             return View(product);
         }
         [Authorize(Roles = "Administrators")]
@@ -129,9 +117,9 @@ namespace OnlineStore.Controllers
         [HttpPost]
         public ActionResult Edit(ProductViewModel model)
         {
-            model.Category = _categoryRepository.GetCategory(model.Category.Id).ToViewModel();
-            model.Manufacturer = _manufacturerRepository.GetManufacturer(model.Manufacturer.Id).ToViewModel();
-            _productRepository.Update(model.ToDto());
+            model.Category = _categoryService.GetCategory(model.Category.Id).ToViewModel();
+            model.Manufacturer = _manufacturerService.GetManufacturer(model.Manufacturer.Id).ToViewModel();
+            _productService.Update(model.ToDto());
             return RedirectToAction("Index");
         }
         [Authorize(Roles = "Administrators")]
@@ -139,13 +127,13 @@ namespace OnlineStore.Controllers
         [HttpGet]
         public ActionResult Edit(Guid id)
         {
-            var categories = _categoryRepository.GetCategory().ToViewModel() ?? new List<CategoryViewModel>();
-            var manufacturers = _manufacturerRepository.GetManufacturer().ToViewModel() ?? new List<ManufacturerViewModel>();
+            var categories = _categoryService.GetCategory().ToViewModel() ?? new List<CategoryViewModel>();
+            var manufacturers = _manufacturerService.GetManufacturer().ToViewModel() ?? new List<ManufacturerViewModel>();
             var currency = System.Enum.GetValues(typeof(Сurrency));
             ViewBag.Currency = new SelectList(currency);
             ViewBag.Category = new SelectList(categories, "Id", "Name"); ;
             ViewBag.Manufacturer = new SelectList(manufacturers, "Id", "Name"); ;
-            var product = _productRepository.GetProduct(id)?.ToViewModel();
+            var product = _productService.GetProduct(id)?.ToViewModel();
 
             return View(product);
         }

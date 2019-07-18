@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CADAA76A-01F1-4F33-9CAF-A35468EC7346}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OnlineStore.BLL</RootNamespace>
+    <AssemblyName>OnlineStore.BLL</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CategoryService.cs" />
+    <Compile Include="Services\ItemService.cs" />
+    <Compile Include="Services\ManufacturerService.cs" />
+    <Compile Include="Services\OrderService.cs" />
+    <Compile Include="Services\ProductService.cs" />
+    <Compile Include="Services\UserService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OnlineStore.BLL.Contracts\OnlineStore.BLL.Contracts.csproj">
+      <Project>{a566853d-1d0b-400a-a653-b8389b0ec7ee}</Project>
+      <Name>OnlineStore.BLL.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OnlineStore.BLL.Dtos\OnlineStore.BLL.Dtos.csproj">
+      <Project>{697d9ad9-133f-4dcc-b941-baf4ad5da104}</Project>
+      <Name>OnlineStore.BLL.Dtos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OnlineStore.Common\OnlineStore.Common.csproj">
+      <Project>{E39D739E-F9A1-47EF-8E92-5B97C8B1B27F}</Project>
+      <Name>OnlineStore.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shop.Dal.CodeFirst\Store.Dal.CodeFirst.csproj">
+      <Project>{22541b84-78b6-4dd0-ad28-feaf52ae2cd9}</Project>
+      <Name>Store.Dal.CodeFirst</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Store.Dtos.Data\Store.Dtos.Data.csproj">
+      <Project>{06bb55ba-a53a-4e6f-adc6-c0d45f2ab12e}</Project>
+      <Name>Store.Dtos.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,7 +1,5 @@
-﻿using OnlineStore.Models;
-using Store.Dtos.Data.Category;
-using Store.Dtos.Data.Manufacturer;
-using Store.Dtos.Data.Product;
+﻿using OnlineStore.BLL.Dtos.Product;
+using OnlineStore.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +9,7 @@ namespace OnlineStore.Mappers
 {
     public static class ProductMapper
     {
-        public static ProductViewModel ToViewModel(this ProductDto model)
+        public static ProductViewModel ToViewModel(this ProductBllDto model)
         {
             return new ProductViewModel
             {
@@ -27,9 +25,9 @@ namespace OnlineStore.Mappers
             };
         }
 
-        public static ProductDto ToDto(this ProductViewModel model)
+        public static ProductBllDto ToDto(this ProductViewModel model)
         {
-            return new ProductDto
+            return new ProductBllDto
             {
                 Id = model.Id,
                 Name = model.Name,
@@ -42,19 +40,19 @@ namespace OnlineStore.Mappers
             };
         }
 
-        public static IEnumerable<ProductViewModel> ToViewModel(this IEnumerable<ProductDto> models)
+        public static IEnumerable<ProductViewModel> ToViewModel(this IEnumerable<ProductBllDto> models)
         {
             return models.Select(x => x.ToViewModel());
         }
 
-        public static IEnumerable<ProductDto> ToViewModel(this IEnumerable<ProductViewModel> models)
+        public static IEnumerable<ProductBllDto> ToViewModel(this IEnumerable<ProductViewModel> models)
         {
             return models.Select(x => x.ToViewModel());
         }
 
-        public static ProductDto ToViewModel(this ProductViewModel model)
+        public static ProductBllDto ToViewModel(this ProductViewModel model)
         {
-            return new ProductDto
+            return new ProductBllDto
             {
                 Id = model.Id,
                 Name = model.Name,

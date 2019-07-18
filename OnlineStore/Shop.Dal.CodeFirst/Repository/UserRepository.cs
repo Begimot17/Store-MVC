@@ -11,6 +11,7 @@ namespace Store.Dal.CodeFirst.Repository
 {
     public class UserRepository : BaseRepository, IUserRepository
     {
+
         public void Create(UserDto model)
         {
             var entity = model.ToEntity();

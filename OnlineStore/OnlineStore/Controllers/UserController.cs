@@ -1,8 +1,7 @@
-﻿using OnlineStore.Mappers;
+﻿using OnlineStore.BLL.Contracts.User;
+using OnlineStore.Common.User;
+using OnlineStore.Mappers;
 using OnlineStore.Models;
-using Store.Dal.CodeFirst.Contracts;
-using Store.Dal.CodeFirst.Repository;
-using Store.Dtos.Data.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,18 +13,17 @@ namespace OnlineStore.Controllers
     [Authorize(Roles = "Administrators")]
     public class UserController:Controller
     {
-        private IUserRepository _userRepository;
-
-        public UserController()
+        private IUserService _userService;
+        public UserController(IUserService userService)
         {
-            _userRepository = new UserRepository();
+            _userService = userService;
         }
 
         [HttpGet]
-        public ActionResult Index(string searchQuery)
+        public ActionResult Index(string searchQuery=null)
         {
-            var options = new UserFilterOptions { SearchQuery = searchQuery };
-            var users = _userRepository.GetUsers(options)?.ToViewModel() ?? new List<UserViewModel>();
+            var options = new UserFilterOption { SearchQuery = searchQuery };
+            var users = _userService.GetUsers(options)?.ToViewModel() ?? new List<UserViewModel>();
 
             return View(new UsersViewModel { Users = users });
         }
@@ -33,7 +31,7 @@ namespace OnlineStore.Controllers
         [HttpGet]
         public ActionResult Delete(Guid id)
         {
-            _userRepository.Delete(id);
+            _userService.Delete(id);
 
             return RedirectToAction("Index");
         }
@@ -47,7 +45,7 @@ namespace OnlineStore.Controllers
         [HttpPost]
         public ActionResult Create(UserViewModel model)
         {
-            _userRepository.Create(model.ToDto());
+            _userService.Create(model.ToDto());
 
             return RedirectToAction("Index");
         }
@@ -55,21 +53,21 @@ namespace OnlineStore.Controllers
         [HttpPost]
         public ActionResult Edit(UserViewModel model)
         {
-            _userRepository.Update(model.ToDto());
+            _userService.Update(model.ToDto());
 
             return RedirectToAction("Index");
         }
         [HttpGet]
         public ActionResult Edit(Guid id)
         {
-            var user = _userRepository.GetUser(id)?.ToViewModel();
+            var user = _userService.GetUser(id)?.ToViewModel();
 
             return View(user);
         }
         [HttpGet]
         public ActionResult Details(Guid id)
         {
-            var user = _userRepository.GetUser(id)?.ToViewModel();
+            var user = _userService.GetUser(id)?.ToViewModel();
 
             return View(user);
         }

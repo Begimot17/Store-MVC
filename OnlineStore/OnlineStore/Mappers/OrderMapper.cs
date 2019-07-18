@@ -1,15 +1,13 @@
-﻿using OnlineStore.Models;
-using Store.Dtos.Data.Order;
-using System;
+﻿using OnlineStore.BLL.Dtos.Order;
+using OnlineStore.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace OnlineStore.Mappers
 {
     public static class OrderMapper
     {
-        public static OrderViewModel ToViewModel(this OrderDto model)
+        public static OrderViewModel ToViewModel(this OrderBllDto model)
         {
             return new OrderViewModel
             {
@@ -20,9 +18,9 @@ namespace OnlineStore.Mappers
             };
         }
 
-        public static OrderDto ToDto(this OrderViewModel model)
+        public static OrderBllDto ToDto(this OrderViewModel model)
         {
-            return new OrderDto
+            return new OrderBllDto
             {
                 Id = model.Id,
                 Number = model.Number,
@@ -30,19 +28,19 @@ namespace OnlineStore.Mappers
             };
         }
 
-        public static IEnumerable<OrderViewModel> ToViewModel(this IEnumerable<OrderDto> models)
+        public static IEnumerable<OrderViewModel> ToViewModel(this IEnumerable<OrderBllDto> models)
         {
             return models.Select(x => x.ToViewModel());
         }
 
-        public static IEnumerable<OrderDto> ToViewModel(this IEnumerable<OrderViewModel> models)
+        public static IEnumerable<OrderBllDto> ToViewModel(this IEnumerable<OrderViewModel> models)
         {
             return models.Select(x => x.ToViewModel());
         }
 
-        public static OrderDto ToViewModel(this OrderViewModel model)
+        public static OrderBllDto ToViewModel(this OrderViewModel model)
         {
-            return new OrderDto
+            return new OrderBllDto
             {
                 Id = model.Id,
                 Number = model.Number,
