@@ -28,16 +28,16 @@ namespace OnlineStore.BLL.Services
                 Description = model.Description,
                 Logo = model.Logo,
                 Manufacturer = new Store.Dtos.Data.Manufacturer.ManufacturerDto {
-                    Id = model.Id,
-                    Name = model.Name,
-                    Logo = model.Logo
+                    Id = model.Manufacturer.Id,
+                    Name = model.Manufacturer.Name,
+                    Logo = model.Manufacturer.Logo
                 },
                 Price = model.Price,
                 Currency = model.Currency,
                 Category = new Store.Dtos.Data.Category.CategoryDto
                 {
-                    Id = model.Id,
-                    Name = model.Name
+                    Id = model.Category.Id,
+                    Name = model.Category.Name
                 },
             };
         }
@@ -51,16 +51,16 @@ namespace OnlineStore.BLL.Services
                 Logo = model.Logo,
                 Manufacturer = new ManufacturerBllDto
                 {
-                    Id = model.Id,
-                    Name = model.Name,
-                    Logo = model.Logo
+                    Id = model.Manufacturer.Id,
+                    Name = model.Manufacturer.Name,
+                    Logo = model.Manufacturer.Logo
                 },
                 Price = model.Price,
                 Currency = model.Currency,
                 Category = new CategoryBllDto
                 {
-                    Id = model.Id,
-                    Name = model.Name
+                    Id = model.Category.Id,
+                    Name = model.Category.Name
                 }
             };
         }

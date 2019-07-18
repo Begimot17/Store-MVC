@@ -93,8 +93,7 @@ namespace OnlineStore.Controllers
             var categories = _categoryService.GetCategory().ToViewModel() ?? new List<CategoryViewModel>();
             if (CategoryId != null)
             {
-                products = products.Where(x => x.Category.Name ==
-                _categoryService.GetCategory((Guid)CategoryId).Name);
+               products = products.Where(x => x.Category.Id==CategoryId);
             }
             if (search != null)
             {

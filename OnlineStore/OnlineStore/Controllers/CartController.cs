@@ -41,7 +41,7 @@ namespace OnlineStore.Controllers
         public ActionResult Buy(Guid Id)
         {
             var items = _itemService.GetItem(Id);
-            if (User.IsInRole("Users"))
+            if (User.IsInRole("Users") && items.Status == "Cart")
             {
                 items.Status = Status.Purchase.ToString();
 
@@ -101,7 +101,7 @@ namespace OnlineStore.Controllers
             {
                 items.Status = Status.Dismissed.ToString();
             }
-            else if (User.IsInRole("Users"))
+            else if (User.IsInRole("Users") && (items.Status == "Cart" || items.Status == "Purchase"))
             {
                 items.Status = Status.Realeased.ToString();
             }

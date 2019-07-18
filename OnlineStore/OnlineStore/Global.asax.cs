@@ -1,4 +1,5 @@
 ﻿using OnlineStore.App_Start;
+using OnlineStore.IOC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace OnlineStore
     {
         protected void Application_Start()
         {
+            IocConfiguration.Register(typeof(MvcApplication).Assembly);
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
